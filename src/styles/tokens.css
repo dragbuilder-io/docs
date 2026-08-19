@@ -1,0 +1,4 @@
+/* Both files scope under [data-theme="light"/"dark"] — the exact same attribute
+   Starlight's own theme toggle sets on <html>, so these sync with it for free. */
+@import "@dragbuilder-io/design-tokens/dist/css/tokens-light.css";
+@import "@dragbuilder-io/design-tokens/dist/css/tokens-dark.css";
