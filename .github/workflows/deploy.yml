@@ -22,7 +22,10 @@ jobs:
 
       - run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+          # Must match the var name .npmrc's `_authToken=${GH_PACKAGES_TOKEN}`
+          # actually reads — NODE_AUTH_TOKEN (setup-node's own convention) is a
+          # different name and left the committed .npmrc's substitution empty.
+          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
       - run: npm run build
 
