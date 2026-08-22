@@ -5,6 +5,16 @@
 // <script> block placed in the body — it got wrapped in a <p> and its quotes
 // got smart-quoted, so the import never actually ran. .astro files don't go
 // through that markdown pass, so the script survives intact here.
+//
+// orbit-button.js imports design-tokens' CSS itself as a side effect, which
+// is enough on its own for a plain Astro page (landing) — Vite inlines it.
+// But here that CSS ends up in its own chunk that Starlight's hoisted-script
+// pipeline never links into the page (no <link> gets emitted for CSS pulled
+// in transitively through a <script> tag). Importing it here too, directly
+// in an .astro frontmatter, goes through Astro's normal CSS handling, which
+// *does* reliably get linked.
+import '@dragbuilder-io/design-tokens/dist/css/tokens.css';
+import '@dragbuilder-io/design-tokens/dist/css/fonts.css';
 ---
 
 <script>

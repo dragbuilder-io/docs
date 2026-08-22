@@ -1,4 +1,0 @@
-/* No Light/Dark split yet — nothing in the current token set varies by theme
-   (see design-tokens' README, "Extender a Light/Dark", for when it does). */
-@import "@dragbuilder-io/design-tokens/dist/css/tokens.css";
-@import "@dragbuilder-io/design-tokens/dist/css/fonts.css";

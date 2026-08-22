@@ -13,7 +13,6 @@ export default defineConfig({
 				src: './logo.svg',
 				alt: 'DragBuilder Logo',
 			},
-			customCss: ['./src/styles/tokens.css'],
 			sidebar: [{
                 	label: 'Getting started',
                 	autogenerate: { directory: 'getting_started' },
