@@ -5,11 +5,13 @@ sidebar:
   order: 0
 ---
 
-import OrbitButton from '@dragbuilder-io/orbit/OrbitButton.astro';
-
 Welcome to **DragBuilder**, the ultimate visual development platform for creating modern, cross-platform applications. With DragBuilder, you can effortlessly build apps targeting **Android**, **iOS**, and the **Web** using a powerful drag-and-drop **UI builder** based on **Compose Multiplatform**.
 
-<OrbitButton text="Descargar DragBuilder" href="https://dragbuilder.io/#download" size="md" />
+<orbit-button href="https://dragbuilder.io/#download" size="md">Descargar DragBuilder</orbit-button>
+
+<script>
+  import '@dragbuilder-io/orbit/orbit-button.js';
+</script>
 
 ![UI builder in DragBuilder](../../../assets/uibuilder_overview.png)
 
