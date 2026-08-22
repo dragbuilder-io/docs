@@ -1,0 +1,12 @@
+---
+// Registers <orbit-button>. Lives in its own .astro file (not inlined as a
+// <script> tag directly in .mdx prose) because Starlight's MDX pipeline runs
+// page content through the markdown/remark processor, which mangled a raw
+// <script> block placed in the body — it got wrapped in a <p> and its quotes
+// got smart-quoted, so the import never actually ran. .astro files don't go
+// through that markdown pass, so the script survives intact here.
+---
+
+<script>
+  import '@dragbuilder-io/orbit/orbit-button.js';
+</script>
