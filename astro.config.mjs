@@ -21,18 +21,22 @@ export default defineConfig({
 			},
 			sidebar: [{
                 	label: 'Getting started',
+                	translations: { es: 'Empezando' },
                 	autogenerate: { directory: 'getting_started' },
                 }, {
                     label: 'Basics',
+                    translations: { es: 'Básicos' },
                     autogenerate: { directory: 'basics' },
                 }, {
                     label: 'Firebase',
                     autogenerate: { directory: 'firebase' },
                 }, {
 					label: 'Guides',
+                	translations: { es: 'Guías' },
                 	autogenerate: { directory: 'guides' },
 				}, {
                    	label: 'Advanced UI',
+                   	translations: { es: 'UI avanzada' },
                     autogenerate: { directory: 'advanced_ui' },
                 }
 			],
