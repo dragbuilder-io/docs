@@ -13,6 +13,8 @@ jobs:
       deployments: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -38,11 +40,41 @@ jobs:
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Build categorized changelog
+        run: |
+          PREV_TAG=$(gh release list --limit 1 --json tagName --jq '.[0].tagName' 2>/dev/null || true)
+          RANGE="HEAD"
+          [ -n "$PREV_TAG" ] && RANGE="$PREV_TAG..HEAD"
+
+          FEATURES=""; FIXES=""; CHANGES=""; DOCS=""; OTHER=""
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            hash="${line%% *}"
+            subject="${line#* }"
+            case "$subject" in
+              Agrega*|Añade*|Add*|Nuevo*|Nueva*) FEATURES="${FEATURES}- ${subject} (${hash})"$'\n' ;;
+              Corrige*|Fix*|Arregla*|Repara*|Revierte*) FIXES="${FIXES}- ${subject} (${hash})"$'\n' ;;
+              Documenta*|Docs*) DOCS="${DOCS}- ${subject} (${hash})"$'\n' ;;
+              Cambia*|Actualiza*|Apunta*|Bump*|Reemplaza*|Reescribe*|Centraliza*) CHANGES="${CHANGES}- ${subject} (${hash})"$'\n' ;;
+              *) OTHER="${OTHER}- ${subject} (${hash})"$'\n' ;;
+            esac
+          done < <(git log $RANGE --pretty=format:"%h %s" --no-merges)
+
+          {
+            [ -n "$FEATURES" ] && printf '### ✨ Novedades\n%s\n' "$FEATURES"
+            [ -n "$FIXES" ] && printf '### 🐛 Correcciones\n%s\n' "$FIXES"
+            [ -n "$CHANGES" ] && printf '### 🔧 Cambios\n%s\n' "$CHANGES"
+            [ -n "$DOCS" ] && printf '### 📝 Documentación\n%s\n' "$DOCS"
+            [ -n "$OTHER" ] && printf '### 🔩 Otros\n%s\n' "$OTHER"
+          } > /tmp/release-notes.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Create GitHub Release
         run: |
           SHA_SHORT=$(git rev-parse --short HEAD)
           gh release create "deploy-$SHA_SHORT" \
             --title "Deploy $(date -u +%Y-%m-%d) ($SHA_SHORT)" \
-            --generate-notes
+            --notes-file /tmp/release-notes.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
