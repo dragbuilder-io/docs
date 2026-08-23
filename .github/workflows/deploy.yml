@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       deployments: write
     steps:
       - uses: actions/checkout@v4
@@ -37,3 +37,12 @@ jobs:
           projectName: dragbuilder-docs
           directory: dist
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        run: |
+          SHA_SHORT=$(git rev-parse --short HEAD)
+          gh release create "deploy-$SHA_SHORT" \
+            --title "Deploy $(date -u +%Y-%m-%d) ($SHA_SHORT)" \
+            --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
