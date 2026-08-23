@@ -1,0 +1,87 @@
+---
+title: Component System
+description: Creá y manejá componentes de UI reutilizables en DragBuilder
+sidebar:
+  order: 4
+---
+
+import { Image } from 'astro:assets';
+
+El **Component System** de DragBuilder te permite crear elementos de UI reutilizables que se pueden usar en múltiples pantallas y proyectos. Esta poderosa funcionalidad te ayuda a mantener consistencia, reducir el tiempo de desarrollo y crear aplicaciones escalables.
+
+## Características principales
+
+### Reutilizable
+Creá una vez, usalo en todas partes. Los components se pueden usar en múltiples pantallas y proyectos sin tener que reconstruir los mismos patrones de UI.
+
+### Autocontenido
+Los components incluyen su propio layout, estilo y comportamiento. Todo lo necesario para que el component funcione está encapsulado dentro de él.
+
+### Personalizable
+Los components aceptan parámetros para variar su apariencia y comportamiento, haciéndolos flexibles para distintos casos de uso.
+
+## Caso de uso de ejemplo: Component PostCard
+
+Pensemos en un component **PostCard** para una app de red social que muestra posts de usuarios:
+
+**Creación inicial**:
+- Creá un component PostCard dentro de un LazyColumn para el feed principal
+- Incluí avatar del usuario, nombre, contenido del post, botón de like y contador de comentarios
+- Hacelo personalizable con parámetros para los datos del usuario y el contenido del post
+
+![creación de component](/image/component_create_dropdown.png)
+
+:::tip[Antes de crear un component]
+Antes de crear un component, cada Composable dentro del ítem del post card se considera un
+Composable individual
+![component antes de crearse](/image/component_before_create.png)
+
+Después de crear el component, el ítem en la pantalla del feed principal se trata como un único component
+
+![component después de crearse](/image/component_after_create.png)
+![component después de crearse en una lista](/image/component_after_create_in_list.png)
+:::
+
+**Reutilizable entre pantallas**:
+- **Main Feed**: Mostrar todos los posts en una lista scrolleable
+- **Search Results**: Mostrar los posts que coinciden cuando los usuarios buscan
+- **User Profile**: Mostrar los posts de un usuario específico
+- **Saved Posts**: Mostrar los posts guardados
+
+:::tip[Component library]
+Después de crearlo, la lista de components queda visible en la pestaña de components y se puede usar en
+otros lugares
+
+![component library](/image/component_library.png)
+:::
+
+**Beneficios**:
+- **Consistencia**: Todas las visualizaciones de posts se ven y comportan igual
+- **Eficiencia**: No hace falta recrear el layout del post para cada pantalla
+- **Mantenimiento**: Las actualizaciones a PostCard se aplican automáticamente en todos lados donde se usa
+
+## Crear Components
+
+### A partir de elementos de UI existentes
+
+1. **Diseñá tu patrón de UI**: Creá el layout deseado (por ejemplo, PostCard con avatar, texto, botones)
+2. **Seleccioná los elementos**: Elegí todos los elementos que deberían formar parte del component
+3. **Convertí a Component**: Clic derecho y seleccioná "Create Component"
+4. **Configurá los parámetros**: Definí qué propiedades deberían ser personalizables (nombre de usuario, texto del post, etc.)
+5. **Guardá**: El component ya está disponible en tu paleta de components
+
+### Usar Components
+
+1. **Accedé a la Component Library**: Encontrá tus components personalizados en la paleta de components de la izquierda
+2. **Arrastrá y soltá**: Colocá el component en cualquier pantalla
+3. **Personalizá la instancia**: Configurá valores de parámetros específicos para cada uso
+4. **Vinculá datos**: Conectá los parámetros del component a app state o fuentes de datos
+
+## Buenas prácticas
+
+- **Propósito único**: Cada component debería tener una responsabilidad clara y enfocada
+- **Nomenclatura consistente**: Usá nombres descriptivos que dejen en claro el propósito del component
+- **Diseño de parámetros**: Hacé que los components sean flexibles con parámetros bien diseñados
+- **Probá la reutilización**: Verificá que los components funcionen bien en distintos contextos antes de finalizarlos
+
+El Component System te permite construir UIs consistentes y mantenibles creando bloques reutilizables que se pueden usar en toda tu aplicación.

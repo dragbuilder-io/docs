@@ -1,0 +1,151 @@
+---
+title: Modifiers
+description: Explica los modifiers en DragBuilder
+sidebar:
+  order: 3
+---
+
+# Modifiers en DragBuilder
+
+En DragBuilder, los **Modifiers** son herramientas poderosas que te permiten decorar o ampliar composables para alterar su apariencia y comportamiento. Aplicando modifiers, podés personalizar elementos de UI sin cambiar su funcionalidad principal.
+
+---
+
+## ¿Qué son los Modifiers?
+
+- Los **Modifiers** te permiten modificar las propiedades de un composable.
+- Pueden ajustar layout, estilo, interactividad y más.
+- Los usos comunes incluyen cambiar el tamaño, agregar padding, configurar colores de fondo y aplicar actions de click.
+
+![Ejemplo de modifier](/image/modifier_padding.png)
+
+---
+
+## Ejemplos de uso de Modifiers
+
+- **Modify Size**: Ajustá el ancho y alto de un composable.
+- **Change Background Color**: Configurá un color de fondo para un composable.
+- **Add Padding**: Agregá espacio alrededor del contenido dentro de un composable.
+- **Align Content**: Posicioná un composable dentro de su layout padre.
+- **Apply Clickable Behavior**: Hacé que un composable responda a interacciones del usuario.
+
+---
+
+## Cómo agregar un Modifier en DragBuilder
+
+### Paso 1: Seleccioná un composable
+
+- **Enfocá el composable**:
+  - Hacé clic en el composable en el **Canvas Area** que querés modificar.
+
+![Agregar un modifier](/image/modifier_create_1.png)
+
+### Paso 2: Accedé al Modifier Inspector Panel
+
+- **Opción 1**: Usá el **Modifier Inspector Panel**.
+  - En el **Inspector panel** del lado derecho, ubicá la sección **"Modifiers"**.
+  - Hacé clic en el botón **"+"** para agregar un nuevo modifier.
+
+- **Opción 2**: Usá un atajo de teclado.
+  - Con el composable seleccionado, presioná la tecla **"+"** de tu teclado para agregar un modifier.
+
+![Agregar un modifier](/image/modifier_create_2.png)
+
+### Paso 3: Seleccioná un Modifier
+
+- Va a aparecer una lista de modifiers disponibles.
+- **Explorá** o **buscá** el modifier que necesitás (por ejemplo, **"Padding"**, **"Background Color"**, **"Size"**).
+- **Seleccioná** el modifier para agregarlo al composable.
+
+![Agregar un modifier](/image/modifier_create_3.png)
+
+### Paso 4: Configurá las propiedades del Modifier
+
+- Después de agregar el modifier, podés ajustar sus propiedades en el **Inspector panel**.
+  - Por ejemplo, configurá el valor del padding, elegí un color o especificá dimensiones.
+
+![Agregar un modifier](/image/modifier_create_4.png)
+
+---
+
+## Entendiendo el orden de los Modifiers
+
+- **El orden de los Modifiers importa**:
+  - El orden en que se aplican los modifiers puede afectar la apariencia y comportamiento final del composable.
+  - Los modifiers se aplican secuencialmente de arriba hacia abajo.
+
+### Reordenar Modifiers
+
+- **Abrí el editor de modifiers**
+  - Hacé clic en el ícono de lápiz en la sección **Modifiers** para abrir el editor de modifiers
+![Abrir el editor de modifiers](/image/open_modifier_editor.png)
+
+- **Arrastrar y soltar**:
+  - En el **Modifiers editor**, podés **reordenar los modifiers** arrastrándolos hacia arriba o abajo.
+  - Hacé clic y mantené presionado el **drag handle** junto a un modifier para moverlo.
+
+### Ejemplo
+
+- **Aplicar Padding antes que Background**:
+  - Si aplicás **Padding** antes que **Background Color**, el padding va a quedar incluido dentro del fondo.
+- **Aplicar Background antes que Padding**:
+  - Si aplicás **Background Color** antes que **Padding**, el fondo no va a incluir el área del padding.
+
+<video controls>
+  <source src="/video/modifier_order_matters.webm" type="video/webm" />
+</video>
+
+---
+
+## Tips para usar Modifiers
+
+- **Experimentá con el orden**:
+  - Probá distintos órdenes de modifiers para lograr el efecto deseado.
+- **Combiná Modifiers**:
+  - Podés aplicar varios modifiers a un mismo composable para personalizaciones complejas.
+
+---
+
+## Modifiers comunes y sus usos
+
+- **Padding**:
+  - Agrega espacio dentro del límite del composable.
+  - Útil para crear aire alrededor del contenido.
+
+- **Background Color**:
+  - Configura el color de fondo de un composable.
+  - Mejora la distinción visual o resalta elementos.
+
+- **Background Brush (Gradientes)**:
+  - Crea fondos con gradientes avanzados de múltiples colores.
+  - Soporta distintos tipos de gradiente y color stops personalizables.
+
+![editor de background brush](/image/background_brush_editor.png)
+
+![background brush luego de creado](/image/background_brush_post.png)
+
+- **Size**:
+  - Especifica el ancho y el alto.
+  - Controla cuánto espacio ocupa el composable.
+
+- **Alignment**:
+  - Posiciona el composable dentro de su layout padre.
+  - Alineá a izquierda, derecha, centro, arriba, abajo, etc.
+
+- **Clickable**:
+  - Hace que un composable responda a eventos de click.
+  - Útil para imágenes o contenedores que necesitan ser interactivos.
+
+---
+
+## Quitar un Modifier
+
+- Para quitar un modifier:
+  - En la sección **Modifiers** del **Inspector panel**, ubicá el modifier que querés quitar.
+  - Hacé clic en el **ícono de tacho de basura** o **clic derecho** y seleccioná **"Remove"**.
+
+---
+
+## Otros recursos
+
+- [Documentación de Modifiers para Jetpack Compose](https://developer.android.com/develop/ui/compose/modifiers)

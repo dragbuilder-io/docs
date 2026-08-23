@@ -1,0 +1,92 @@
+---
+title: Firestore
+description: Explica cómo integrar Firebase Firestore
+sidebar:
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Integración de Firestore en DragBuilder
+
+La integración de Firestore en DragBuilder te permite manejar e interactuar con tu base de datos de Firestore sin fricciones dentro de tus proyectos de DragBuilder. Esta guía te va a llevar paso a paso por la configuración y el uso de Firestore en DragBuilder.
+
+---
+
+:::note
+### Prerrequisitos
+
+Antes de empezar, asegurate de que la integración de Firebase esté correctamente configurada en tu proyecto. Para instrucciones detalladas, mirá la [guía de configuración de Firebase](/firebase/setup).
+:::
+
+---
+
+## Usar Firestore en DragBuilder
+
+### 1. Asociar un Data Type con una colección de Firestore
+
+<Steps>
+1. Navegá a la sección **Firestore** en la navegación de nivel superior de DragBuilder. Este es tu punto de entrada para manejar colecciones de Firestore y sus asociaciones con data types.
+
+2. **Tocá el botón "Associate a Data Type"**
+   Este botón te permite asociar una colección de Firestore con un data type específico en DragBuilder.
+  ![Botón de asociación de Firestore](/image/firestore_associate_button.png)
+
+3. **Completá los detalles de la asociación**
+   - **Firestore Collection Name**: Ingresá el nombre de la colección de Firestore que querés vincular.
+   - **Data Type**: Elegí un data type existente de tu proyecto o creá uno nuevo para representar las entidades guardadas en la colección de Firestore.
+   Mirá [Data type](/guides/data_type) para más detalles sobre Data type.
+  ![Diálogo de asociación de Firestore](/image/firestore_associate_dialog.png)
+
+4. **Guardá la asociación**
+   Una vez guardada, DragBuilder va a reconocer los documentos de la colección de Firestore como una lista de entidades del data type especificado.
+
+5. **Editá los campos del Data Type (Opcional)**
+   Podés personalizar los campos del data type asociado editándolos en el panel derecho después de crear la asociación.
+  ![Data type de Firestore](/image/firestore_data_type.png)
+</Steps>
+
+---
+
+### 2. Qué pasa después de la asociación
+
+Una vez que asociás una colección de Firestore con un data type, quedan disponibles dos funcionalidades clave:
+
+#### A. Actions de "Firestore"
+
+- **Visibilidad**:
+  El conjunto de actions relacionadas con Firestore, como "Save to Firestore", se vuelve visible en la lista de actions disponibles.
+
+![Actions de Firestore](/image/firestore_actions.png)
+
+- **Uso**:
+  Podés guardar una entidad en la colección de Firestore asociada invocando esta action.
+
+![Action de guardar en Firestore](/image/save_to_firestore_action.png)
+
+#### B. Colección de Firestore como State
+
+- **Visibilidad**:
+  La colección de Firestore asociada ahora es accesible como parte de los states de DragBuilder.
+![Colección de Firestore como state](/image/firestore_collection_as_state.png)
+
+- **Uso**:
+  Asigná el state de la colección de Firestore a cualquier valor para consultar y obtener las entidades guardadas en la colección.
+![Colección de Firestore como state asignado](/image/firestore_collection_as_state_assigned.png)
+
+---
+
+## Flujo de trabajo de ejemplo
+
+1. Navegá a **Firestore** y asociá la colección `ToDo` con un data type `Todo`.
+2. Personalizá el data type `ToDo` para incluir campos como `name`, `done`.
+3. Usá la action "Save to Firestore" para agregar un nuevo ítem de ToDo a la colección de Firestore.
+4. Consultá la colección `ToDo` asignando su state como elementos dinámicos en el `LazyColumn`.
+5. Después de correr la app, vas a poder observar que invocar la action "Save to Firestore" o agregar un documento directamente desde la consola de Firestore se refleja al instante en la app en ejecución
+
+---
+
+## Puntos clave
+
+- La integración de Firestore en DragBuilder simplifica el manejo de colecciones de Firestore vinculándolas directamente con data types estructurados.
+- Los cambios en los data types o las actions se reflejan al instante en tu proyecto, garantizando consistencia con tu base de datos de Firestore.

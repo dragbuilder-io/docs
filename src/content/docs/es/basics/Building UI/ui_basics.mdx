@@ -1,0 +1,161 @@
+---
+title: UI basics
+description: Explica los fundamentos de cómo construir UI en DragBuilder
+sidebar:
+  order: 0
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# UI Basics en DragBuilder
+
+Entender los bloques fundamentales de UI en DragBuilder es esencial para diseñar interfaces de usuario intuitivas y atractivas. Este documento da un panorama general de los fundamentos de UI, enfocándose en:
+
+- **Composables**
+- **Components**
+- **Screens**
+
+## Composables
+
+Los **Composables** son los bloques primitivos de UI en DragBuilder. Representan las unidades más pequeñas de UI que podés usar para construir la interfaz de tu aplicación. Los composables son análogos a los widgets o views de otros frameworks y se basan en el concepto de funciones composable de Jetpack Compose.
+
+### Ejemplos de Composables:
+
+- **Text**: Muestra contenido textual.
+- **Icon**: Muestra un ícono de un set predefinido o de assets personalizados.
+- **Image**: Renderiza una imagen desde recursos locales o URLs remotas.
+- **Button**: Un elemento interactivo que dispara actions al hacer clic.
+- **TextField**: Permite el input de texto por parte del usuario.
+- **Checkbox**: Representa una elección binaria, marcada o no marcada.
+
+### Uso en DragBuilder:
+
+- **Interfaz drag-and-drop**: Agregá composables a tus pantallas arrastrándolos desde la librería de componentes hacia el canvas de diseño.
+- **Configuración de Modifiers**: Personalizá composables configurando `Modifier` como color, tamaño, contenido de texto y más, a través del inspector panel.
+
+  Mirá la página de [Modifiers](/basics/modifiers) para más detalles.
+- **Manejo de eventos**: Asigná actions a composables como botones definiendo event handlers que respondan a interacciones del usuario.
+
+  Mirá la página de [Actions](/basics/actions) para más detalles.
+
+<video controls>
+  <source src="/video/drag_drop_composables.webm" type="video/webm" />
+</video>
+
+### Composables de Layout
+
+Algunos composables están diseñados para tener composables hijos, permitiéndote construir estructuras de UI jerárquicas. Se conocen como **Layout Composables**, y determinan cómo se organizan sus composables hijos en la pantalla.
+
+#### Puntos clave:
+
+- **Estructura jerárquica**: Los layout composables te permiten anidar composables entre sí, creando una jerarquía de UI en forma de árbol.
+- **Relación padre-hijo**: Cómo se organizan los composables hijos depende del layout composable padre.
+- **Layout Composables comunes**:
+
+  - **Column**:
+    - Organiza los composables hijos verticalmente, uno después del otro.
+    - Útil para apilar elementos de arriba hacia abajo.
+  - **Row**:
+    - Organiza los composables hijos horizontalmente, uno al lado del otro.
+    - Ideal para colocar elementos uno junto al otro.
+  - **Box**:
+    - Apila los composables hijos uno sobre otro.
+    - Útil para crear overlays o fondos.
+
+![composable_layout](/image/composable_layout.jpeg)
+
+#### Uso en DragBuilder:
+
+- **Agregar composables hijos**: Arrastrá y soltá composables dentro de un layout composable para construir tu jerarquía de UI.
+- **Personalizar layouts**: Ajustá propiedades como alineación, espaciado y padding para afinar cómo se muestran los composables hijos.
+- **Combinar layouts**: Anidá distintos layout composables entre sí para crear diseños de UI complejos y responsivos.
+
+---
+
+## Components
+
+Los **Components** son conjuntos de composables agrupados para crear elementos de UI reutilizables. Encapsulan patrones o funcionalidades de UI complejas, permitiéndote mantener consistencia y agilizar tu proceso de desarrollo.
+
+### Características:
+
+- **Diseño modular**: Los components promueven la modularidad encapsulando elementos de UI y lógica relacionados.
+- **Reutilización**: Una vez creados, los components se pueden reutilizar en múltiples pantallas y proyectos.
+- **Parametrización**: Los components pueden aceptar parámetros de entrada para personalizar su comportamiento y apariencia al reutilizarse.
+
+### Ejemplos de Components:
+
+- **User Profile Card**:
+
+  - Compuesto por una `Image` para el avatar, `Text` para el nombre de usuario, y composables `Text` o `Icon` adicionales para indicadores de estado.
+  - Usado en listas de usuarios, mensajes o feeds sociales.
+
+- **Product Item**:
+
+  - Combina una `Image` del producto, `Text` para el nombre y precio, y un `Button` para agregar al carrito.
+  - Utilizado en apps de compras para mostrar ítems en un catálogo.
+
+### Crear Components
+
+<Steps>
+1. **Seleccioná un composable**: Seleccioná el composable que querés convertir en un component.
+2. **Clic derecho**: Abrí el menú contextual haciendo clic derecho.
+2. **Seleccioná `Convert to Component`**: Usá la opción "Create Component" para encapsularlos.
+3. **Agregale un nombre al component**: Agregale un nombre al component.
+4. **Reutilizalo**: Arrastrá el component recién creado desde la librería de componentes hacia cualquier pantalla.
+</Steps>
+
+<video controls>
+  <source src="/video/component_example.webm" type="video/webm" />
+</video>
+
+---
+
+## Screens
+
+Las **Screens** son los contenedores de nivel superior que representan vistas o páginas distintas dentro de tu aplicación. Cada pantalla es una composición de composables y components organizados para entregar funcionalidad o contenido específico al usuario.
+
+### Características:
+
+- **Puntos de entrada**: Se accede a las pantallas a través de la navegación y representan distintas secciones de tu app.
+- **Estructura de layout**: Definen la organización de los elementos de UI usando layout composables como `Column`, `Row` o `Box`.
+
+### Ejemplos de Screens:
+
+- **Home Screen**:
+
+  - Ofrece un panorama general o dashboard con información clave y opciones de navegación.
+  - Puede incluir components como un mensaje de bienvenida, contenido destacado o acciones rápidas.
+
+- **Login Screen**:
+
+  - Permite a los usuarios autenticarse con sus credenciales.
+  - Contiene composables `TextField` para usuario y contraseña, y un `Button` para enviar.
+
+- **Settings Screen**:
+
+  - Ofrece opciones configurables para la app.
+  - Utiliza components como toggles, sliders y menús desplegables.
+
+### Construir Screens
+
+<Steps>
+1. **Hacé clic en el botón de nueva pantalla**: Hacé clic en el botón de nueva pantalla en la esquina superior izquierda del canvas area.
+2. **Seleccioná la plantilla de pantalla**: Seleccioná la plantilla de pantalla de la lista de pantallas integradas.
+3. **Nombrá la pantalla**: Agregale un nombre a la pantalla.
+</Steps>
+
+<video controls>
+  <source src="/video/new_screen.webm" type="video/webm" />
+</video>
+
+---
+
+## Relaciones entre los bloques de UI
+
+- Los **Composables** son los elementos fundamentales usados para construir **Components**.
+- Los **Components** son construcciones de nivel superior compuestas por múltiples composables, diseñadas para reutilización y encapsulamiento.
+- Las **Screens** están compuestas por composables y components, formando la interfaz de usuario completa para una vista particular de tu app.
+
+Esta estructura jerárquica te permite construir interfaces complejas de manera eficiente reutilizando y anidando elementos.
+
+---

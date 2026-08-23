@@ -1,0 +1,89 @@
+---
+title: Navegación
+description: Explica la navegación en DragBuilder
+sidebar:
+  order: 1
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Navegación en DragBuilder
+
+DragBuilder ofrece un sistema de navegación integrado que permite a los usuarios moverse entre distintas pantallas dentro de tu app. La navegación se adapta al tamaño de la pantalla para optimizar la experiencia de usuario y aprovechar mejor el espacio disponible.
+
+---
+
+## Apariencia adaptativa de la navegación
+
+- **Pantallas pequeñas**:
+  - En dispositivos más chicos como celulares, aparece una barra de **Bottom Navigation** en la parte inferior de la pantalla.
+  - Esto da acceso fácil a los destinos principales usando poco espacio de pantalla.
+
+- **Pantallas medianas y grandes**:
+  - En tablets, desktops u otros dispositivos más grandes, se muestra un **Navigation Rail** en el lado izquierdo de la app.
+  - Este layout aprovecha el espacio extra de pantalla para ofrecer una experiencia de navegación más inmersiva.
+
+<video controls>
+  <source src="/video/adaptive_navigation.webm" type="video/webm" />
+</video>
+
+---
+
+## Configurar pantallas en la navegación
+
+Podés controlar qué pantallas aparecen en el menú de navegación. Por defecto, es posible que las pantallas no estén incluidas en la navegación. Seguí estos pasos para incluir una pantalla:
+
+<Steps>
+1. **Abrí el UI Builder**:
+   - En tu proyecto de DragBuilder, navegá al **UI Builder**.
+
+2. **Accedé a la pestaña Screens**:
+   - Ubicá la pestaña **"Screens"** dentro del UI Builder.
+   - Esta pestaña muestra una lista de todas las pantallas de tu proyecto.
+
+3. **Seleccioná la pantalla deseada**:
+   - Hacé clic en la pantalla que querés incluir en la navegación.
+   - Las propiedades de la pantalla van a aparecer en el **Inspector panel** del lado derecho.
+
+4. **Activá "Show on Navigation"**:
+   - En el **Inspector panel**, buscá la opción **"Show on Navigation"**.
+   - Activá esta opción para incluir la pantalla en el menú de navegación.
+   - Opcionalmente, podés configurar un **ícono** y una **etiqueta** para la pantalla tal como aparece en la navegación.
+</Steps>
+
+<video controls>
+  <source src="/video/toggle_screen_part_of_navigation.webm" type="video/webm" />
+</video>
+
+---
+
+## Habilitar o deshabilitar la navegación en la app
+
+DragBuilder te permite habilitar o deshabilitar el componente de navegación en tu app. Así se hace:
+
+<Steps>
+1. **Ubicá el toggle de navegación**:
+   - En la parte inferior del **Canvas Area** en el UI Builder, vas a encontrar un **botón toggle** para la navegación.
+   - Este botón controla la visibilidad del componente de navegación en tu app.
+
+2. **Activá o desactivá la navegación**:
+   - **Habilitar navegación**:
+     - Hacé clic en el botón toggle para activar la navegación.
+     - La barra de navegación (Bottom Navigation o Navigation Rail, según el tamaño de pantalla) va a aparecer en tu app.
+   - **Deshabilitar navegación**:
+     - Hacé clic en el botón toggle otra vez para desactivar la navegación.
+     - El componente de navegación se va a quitar de la UI de tu app.
+</Steps>
+---
+
+## Resumen
+
+- **Navegación integrada**:
+  - Las apps de DragBuilder vienen con un sistema de navegación integrado que se adapta a distintos tamaños de pantalla.
+- **UI adaptativa**:
+  - Las pantallas pequeñas usan **Bottom Navigation**.
+  - Las pantallas medianas y grandes usan un **Navigation Rail**.
+- **Configurar pantallas**:
+  - Usá el toggle **"Show on Navigation"** en el **Inspector panel** para incluir pantallas en la navegación.
+- **Habilitar navegación**:
+  - Usá el **botón toggle** en la parte inferior del **Canvas Area** para habilitar o deshabilitar el componente de navegación en tu app.

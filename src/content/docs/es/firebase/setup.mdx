@@ -1,0 +1,59 @@
+---
+title: Configurar la integración con Firebase
+description: Explica cómo configurar la integración con Firebase
+sidebar:
+  order: 0
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+Integrar Firebase con DragBuilder te permite agregar servicios de backend poderosos a tu app, como autenticación, bases de datos en tiempo real, almacenamiento en la nube y más. Esta guía te va a llevar por los pasos básicos para configurar Firebase en tu proyecto de DragBuilder.
+
+## Prerrequisitos
+
+- **DragBuilder instalado**: Asegurate de tener la última versión de DragBuilder.
+- **Cuenta de Firebase**: Tenés una cuenta de Google y acceso a la Firebase Console.
+
+---
+
+## Pasos para configurar Firebase en DragBuilder
+
+### Paso 1: Creá un proyecto de Firebase
+
+<Steps>
+1. Andá a la [Firebase Console](https://console.firebase.google.com/).
+2. Hacé clic en **"Add project"** o **"Create a project"**.
+3. Ingresá un nombre de proyecto y seguí las instrucciones en pantalla para crear tu proyecto de Firebase.
+</Steps>
+
+### Paso 2: Obtené el Project ID de Firebase
+
+<Steps>
+1. En la Firebase Console, navegá a los **Settings** de tu proyecto:
+    - Hacé clic en el **ícono de engranaje** junto a **"Project Overview"**.
+    - Seleccioná **"Project settings"** del menú desplegable.
+2. En la sección **"Your project"**, ubicá y copiá tu **Project ID**.
+</Steps>
+
+### Paso 3: Configurá Firebase en DragBuilder
+
+<Steps>
+1. Abrí tu proyecto de **DragBuilder**.
+2. Navegá a **Settings** > **Firebase** en el menú de DragBuilder.
+3. Pegá el **Project ID** que copiaste de Firebase en el campo **Project ID**.
+4. Hacé clic en **"Connect"** para vincular tu proyecto de DragBuilder con Firebase.
+</Steps>
+
+:::note
+Conectarte al proyecto de Firebase puede requerir permisos adicionales, más amplios que los necesarios para iniciar sesión en DragBuilder.
+Este paso puede requerir que abras tu navegador y otorgues scopes adicionales.
+:::
+
+![Después de configurar la integración con Firebase](/image/firebase_after_setup.png)
+
+---
+
+## Próximos pasos
+
+- **Habilitá servicios de Firebase**: En la Firebase Console, habilitá los servicios que querés usar (por ejemplo, Authentication, Firestore, Storage).
+- **Configurá en DragBuilder**: Usá las herramientas de DragBuilder para integrar los servicios de Firebase en tu app, como agregar flujos de autenticación o interacciones con la base de datos.

@@ -1,0 +1,160 @@
+---
+title: Authentication
+description: Explica cómo incorporar Firebase Authentication
+sidebar:
+  order: 1
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Authentication en DragBuilder
+
+Integrar autenticación en tu app de DragBuilder te permite manejar el acceso de usuarios y personalizar experiencias. DragBuilder usa Firebase Authentication para ofrecer métodos de autenticación seguros y fáciles de implementar.
+
+---
+
+## Prerrequisitos
+
+Antes de empezar, asegurate de completar los siguientes pasos:
+
+1. **Integración con Firebase**: Tu proyecto de DragBuilder está conectado a Firebase. Si no, seguí la [guía de configuración de Firebase](/firebase/setup) para integrar Firebase con tu proyecto de DragBuilder.
+
+2. **Habilitá los proveedores de autenticación**:
+
+    - Navegá a la [Firebase Console](https://console.firebase.google.com/) de tu proyecto.
+    - Andá a **Authentication** > **Sign-in method**.
+    - Habilitá los proveedores de autenticación que querés usar (por ejemplo, Email/Password, Google, Facebook).
+    - Configurá los ajustes necesarios para cada proveedor.
+
+![firebase authentication habilitado](/image/firebase_authentication_enabled.png)
+
+---
+
+## Habilitar Authentication en DragBuilder
+
+Una vez que Firebase Authentication está habilitado y configurado, DragBuilder te da acceso automáticamente a las funcionalidades de autenticación de usuarios:
+
+- **Propiedades del usuario como States**: Las propiedades del usuario autenticado como **email**, **display name** y **user ID** quedan disponibles como states dentro de tu app. Podés usar estos states para personalizar contenido o manejar sesiones de usuario.
+
+![propiedades del usuario autenticado](/image/signed_in_user_properties.png)
+
+- **Actions de Authentication**: Queda disponible un conjunto de actions relacionadas con la autenticación, incluyendo:
+
+    - **Sign in with email/password**
+    - **Sign in with Google**
+    - **Crate user with email/password**
+    - **Sign Out User**
+
+![Auth actions](/image/auth_actions.png)
+
+:::note
+Por el momento, solo el login social de Google está habilitado como proveedor de autenticación de terceros.
+Pero se van a agregar más en futuros releases.
+:::
+
+---
+
+## Usar la plantilla de Login Screen
+
+DragBuilder ofrece una plantilla de **Login Screen** que simplifica el proceso de configurar la autenticación de usuarios.
+
+### Paso 1: Agregá la plantilla de Login Screen
+
+1. **Agregá una nueva pantalla**:
+
+    - Andá a **Screens** en el **Project Explorer**.
+    - Hacé clic en **"+"** para agregar una nueva pantalla.
+    - Elegí **"Login Screen"** de la lista de plantillas.
+    - Nombrá la pantalla (por ejemplo, **"LoginScreen"**).
+
+![Plantilla de login screen](/image/login_screen_template.png)
+
+2. **Revisá el diseño preconstruido**:
+
+    - La plantilla incluye los elementos de UI necesarios, como campos de **Email** y **Password**, un botón de **Login**, y opciones para proveedores de sign-in de terceros si están habilitados.
+    - Las actions de autenticación ya están asignadas a los triggers correspondientes.
+
+### Paso 2: Personalizá la Login Screen
+
+1. **Modificá los elementos de UI**:
+
+    - Ajustá el diseño para que coincida con el tema de tu app.
+    - Agregá o quitá campos según sea necesario.
+
+2. **Revisá las Actions asignadas**:
+
+    - Seleccioná el botón **Login**.
+    - En el **Inspector panel**, verificá que el trigger `onClick` tenga asignada la action **"Sign in with Email/Password"**.
+
+3. **Configurá el Sign-In de terceros** (Opcional):
+
+    - Si habilitaste proveedores como Google Sign-In, asegurate de que los botones correspondientes tengan asignada la action **"Sign in with Google"**.
+
+---
+
+## Configurar la pantalla inicial
+
+DragBuilder te permite configurar la pantalla inicial de tu app según el estado de autenticación del usuario.
+
+### Paso 1: Andá a Preferences
+
+1. En DragBuilder, andá a **Settings** > **Preferences**.
+
+### Paso 2: Configurá la pantalla inicial
+
+1. **Dropdown de Initial Screen**:
+
+    - Ubicá el ajuste **"Initial Screen"**.
+    - Ahí podés especificar qué pantalla se debe mostrar al iniciar la app.
+
+2. **Configurá la navegación condicional**:
+
+    - Elegí **"LoginScreen"** como pantalla inicial para los usuarios que no iniciaron sesión.
+
+![Pantalla inicial](/image/initial_screen_setting.png)
+
+---
+
+## Implementar Actions de Authentication manualmente
+
+Si preferís armar tu flujo de autenticación desde cero, podés asignar las actions de autenticación manualmente.
+
+### Paso 1: Diseñá la UI de autenticación
+
+1. **Creá una Login Screen personalizada**:
+
+    - Agregá una nueva pantalla y diseñá tu propio layout con composables **TextField** para email y contraseña, y un **Button** para el login.
+
+### Paso 2: Asigná las Actions de Authentication
+
+1. **Seleccioná el botón de Login**:
+
+    - Hacé clic en el botón **Login** de tu canvas.
+
+2. **Agregá la Action de Sign-In**:
+
+    - En el **Inspector panel**, dentro de **Events**, buscá el trigger `onClick`.
+    - Hacé clic en **"Add Action"** y seleccioná **"Sign in with Email/Password"**.
+
+3. **Configurá la Action**:
+
+    - **Campo Email**: Vinculá la action al campo de entrada de email.
+    - **Campo Password**: Vinculá la action al campo de entrada de contraseña.
+
+---
+
+## Funcionalidades adicionales de Authentication
+
+### Sign Out
+
+- **Implementá un botón de Sign-Out**:
+
+    - Agregá un **Button** para cerrar sesión.
+    - Asigná la action **"Sign Out User"** al trigger `onClick`.
+
+### Sign-In de terceros
+
+- **Habilitá el login social**:
+
+    - Agregá botones para proveedores como Google o Facebook.
+    - Asigná actions como **"Sign in with Google"** a los triggers `onClick`.

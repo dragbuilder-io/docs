@@ -1,0 +1,188 @@
+---
+title: AI Agent
+description: Usá el AI Agent para construir UIs con lenguaje natural
+sidebar:
+  order: 1
+---
+
+import { Image } from 'astro:assets';
+
+DragBuilder incluye **AI Agents** poderosos que te permiten crear y modificar interfaces de usuario usando lenguaje natural. Hay dos tipos de agentes de IA, cada uno diseñado para distintos flujos de trabajo:
+
+1. **AI Chat Interface** - Modifica y mejora tu proyecto actual, incluyendo pantallas, arquitectura de la app, states y data types
+2. **AI Screen Creator** - Crea pantallas completamente nuevas desde cero
+
+En vez de arrastrar y soltar componentes manualmente, simplemente podés describir qué querés construir, y la IA va a generar la UI por vos.
+
+## Tipos de AI Agents
+
+### 1. AI Chat Interface (Modificaciones a nivel de proyecto)
+
+El **AI Chat Interface** está diseñado para modificar y mejorar tu proyecto actual de forma integral. Este asistente trabaja dentro del contexto de todo tu proyecto y puede hacer cambios en distintos aspectos de tu aplicación.
+
+<video controls>
+  <source src="/video/ai_assistant_add_nav_drawer.webm" type="video/webm" />
+</video>
+
+**Cómo acceder**:
+- **Atajo de teclado**: Presioná `Cmd + K` (o `Ctrl + K` en Windows/Linux) mientras estás en el UI Builder
+- **Botón de la toolbar**: Hacé clic en el botón de AI chat en la toolbar izquierda
+- **Menú**: Navegá a la opción AI Assistant en el menú principal
+
+**Alcance de las modificaciones**:
+- **Cambios a nivel de pantalla**: Modificá el layout y los componentes de la pantalla actualmente abierta
+- **Arquitectura de la app**: Actualizá app states, flujos de navegación y relaciones entre pantallas
+- **Manejo de datos**: Creá y modificá data types, variables de app state y estructuras de datos
+- **Funcionalidades entre pantallas**: Implementá funcionalidad que abarque varias pantallas
+- **Configuración del proyecto**: Ajustá themes, settings y configuraciones a nivel de proyecto
+
+**Ideal para**:
+- Hacer cambios a pantallas y componentes existentes
+- Crear y manejar app states y data types
+- Implementar funcionalidades que afectan varias partes de tu app
+- Refinar la arquitectura general de la app y el flujo de datos
+- Agregar funcionalidad e integraciones a nivel de proyecto
+
+### 2. AI Screen Creator (Generación de pantallas nuevas)
+
+El **AI Screen Creator** crea pantallas completamente nuevas desde cero según tu descripción.
+
+<video controls>
+  <source src="/video/ai_assistant_create_screen.webm" type="video/webm" />
+</video>
+
+**Cómo acceder**:
+1. **Navegá a la pestaña Screens**: Seleccioná la pestaña de pantallas en el panel izquierdo
+2. **Agregá una nueva pantalla**: Hacé clic en el botón "Add Screen"
+3. **Elegí la creación con IA**: Hacé clic en el botón "Create screen with AI"
+4. **Describí tu pantalla**: Ingresá una descripción en lenguaje natural de la pantalla que querés crear
+
+**Ideal para**:
+- Crear pantallas nuevas desde cero
+- Generar layouts de UI completos
+- Construir pantallas para funcionalidades o secciones nuevas
+- Prototipado rápido de conceptos de pantalla
+
+## Empezando con los AI Agents
+
+### Usar el AI Chat Interface (Modificaciones a nivel de proyecto)
+
+**Flujo de trabajo**:
+1. **Accedé al AI Chat**: Presioná `Cmd + K` para abrir la interfaz de chat de IA desde cualquier parte de tu proyecto
+2. **Describí los cambios**: Decile a la IA qué querés modificar, crear o mejorar en tu proyecto
+3. **Revisá los cambios**: La IA va a hacer cambios en pantallas, estructuras de datos o arquitectura de la app según sea necesario
+4. **Iterá**: Continuá la conversación para refinar y ampliar los cambios
+5. **Probá la integración**: Verificá que los cambios funcionen correctamente en las distintas partes de tu app
+
+**Ejemplos de prompts para modificaciones de proyecto**:
+
+**Cambios a nivel de pantalla**:
+- "Agregá una barra de búsqueda arriba de esta pantalla"
+- "Hacé los botones más grandes y cambialos a azul"
+- "Cambiá el layout para usar cards en vez de una lista"
+
+**Arquitectura de la app y manejo de datos**:
+- "Creá un app state de perfil de usuario con campos de nombre, email y avatar"
+- "Agregá un data type de carrito de compras que pueda guardar varios productos"
+- "Creá un sistema de autenticación con states de login y logout"
+- "Configurá la navegación entre la pantalla de login y el dashboard"
+
+**Funcionalidades a nivel de proyecto**:
+- "Implementá un toggle de modo oscuro que afecte a toda la app"
+- "Creá un sistema de notificaciones que funcione en todas las pantallas"
+- "Agregá un data type de preferencias de usuario y conectalo a la pantalla de settings"
+- "Configurá un loading state global para las llamadas a la API"
+
+### Usar el AI Screen Creator (Generación de pantallas nuevas)
+
+**Flujo de trabajo**:
+1. **Navegá a Screens**: Andá a la pestaña de pantallas en el panel izquierdo
+2. **Agregá una nueva pantalla**: Hacé clic en el botón "Add Screen"
+3. **Elegí la creación con IA**: Hacé clic en "Create screen with AI"
+4. **Describí tu pantalla**: Brindá una descripción completa de la pantalla que querés
+5. **Revisá la pantalla generada**: La IA crea una pantalla nueva completa
+6. **Refiná si hace falta**: Usá el AI Chat Interface para hacer ajustes
+
+**Ejemplos de prompts para crear pantallas nuevas**:
+- "Creá una pantalla de login con campos de email y contraseña, un botón de login y un link de olvidé mi contraseña"
+- "Hacé una pantalla de catálogo de productos con una grilla de productos, cada uno mostrando imagen, nombre y precio"
+- "Construí una pantalla de perfil de usuario con foto, nombre, bio y botón de editar"
+- "Creá una pantalla de settings con switches y opciones de preferencias"
+
+### Conciencia de contexto
+
+El AI Agent entiende el contexto de tu proyecto actual:
+
+- **Componentes existentes**: Hace referencia a los componentes que ya están en tu proyecto
+- **Colores del Theme**: Usa el esquema de colores de tu proyecto
+- **Estructura de pantallas**: Construye sobre los layouts de pantalla que ya existen
+- **Data Types**: Incorpora los modelos de datos que definiste
+
+## Buenas prácticas
+
+### Escribir prompts efectivos
+
+#### Para el AI Chat Interface (Modificaciones a nivel de proyecto)
+
+**Especificá el alcance con claridad**: Indicá si querés cambios a nivel de pantalla o a nivel de proyecto
+```
+❌ "Agregá un botón"
+✅ "Agregá un botón de submit debajo del campo de contraseña en esta pantalla"
+✅ "Creá un botón de navegación global que aparezca en todas las pantallas"
+```
+
+**Hacé referencia al contexto del proyecto**: Mencioná elementos, data types o app states existentes
+```
+❌ "Mejoralo"
+✅ "Actualizá el data type de perfil de usuario para incluir un campo de bio y conectalo a la pantalla de perfil"
+```
+
+**Sé explícito sobre el alcance**: Aclará si los cambios deben afectar a una pantalla o a todo el proyecto
+```
+❌ "Cambiá los colores"
+✅ "Actualizá el color primario del theme en toda la app"
+✅ "Cambiá el color de fondo del header solo en esta pantalla"
+```
+
+**Describí los cambios arquitectónicos**: Cuando trabajés con app states y data types
+```
+❌ "Agregá algunos datos"
+✅ "Creá un app state de carrito de compras que haga seguimiento de ítems, cantidades y precio total en todas las pantallas"
+```
+
+#### Para el AI Screen Creator (Generación de pantallas nuevas)
+
+**Brindá descripciones completas**: Incluí todos los elementos principales
+```
+❌ "Hacé un formulario"
+✅ "Creá un formulario de registro de usuario con campos de nombre, email, contraseña, un botón de submit y un link a login"
+```
+
+**Describí el layout y la estructura**: Explicá cómo deberían organizarse los elementos
+```
+❌ "Agregá algunos botones"
+✅ "Agregá tres botones redondeados organizados horizontalmente abajo, con íconos y etiquetas"
+```
+
+**Incluí patrones de interacción**: Mencioná los comportamientos esperados
+```
+❌ "Hacé una lista"
+✅ "Creá una lista de productos scrolleable donde tocar cada ítem navegue a una pantalla de detalle"
+```
+
+### Si los resultados no son los esperados
+
+**Sé más específico**: Agregá más detalles sobre tus requerimientos
+**Pedí modificaciones**: Solicitá cambios específicos a la UI generada
+**Empezá de nuevo**: A veces es más fácil arrancar con una nueva descripción
+
+## Integración con otras funcionalidades
+
+El AI Agent funciona sin fricciones con otras funcionalidades de DragBuilder:
+
+- **Theme Editor**: Las UIs generadas por IA usan tus themes personalizados
+- **Component Library**: La IA puede crear y hacer referencia a componentes reutilizables
+- **State Management**: La IA ayuda a configurar app state y data binding
+- **Integración con Firebase**: La IA puede configurar conexiones de base de datos y autenticación
+
+Los AI Agents transforman a DragBuilder en una plataforma de desarrollo de UI conversacional, haciéndola accesible a desarrolladores de todos los niveles mientras acelera drásticamente el proceso de desarrollo. Al entender cuándo usar cada tipo de agente, podés maximizar tu productividad y crear mejores diseños de forma más eficiente.

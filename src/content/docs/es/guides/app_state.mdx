@@ -1,0 +1,129 @@
+---
+title: App state
+description: Explica los app states en DragBuilder
+sidebar:
+  order: 1
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# App State en DragBuilder
+
+Los app states en DragBuilder son esenciales para manejar y mantener datos que persisten localmente en el dispositivo del usuario. Te permiten representar y manejar valores o configuraciones a lo largo de tu app, como preferencias del usuario, settings y otros datos dinámicos que necesitan estar accesibles desde cualquier pantalla de la aplicación.
+
+---
+
+## Resumen
+
+- **App States**: Mecanismos de almacenamiento de datos localizados que guardan valores o configuraciones accesibles en todas las pantallas de tu app de DragBuilder.
+- **Almacenamiento persistente**: Garantiza que los datos sigan disponibles incluso cuando la app se cierra o reinicia.
+- **Accesibilidad global**: Permite que cualquier pantalla de la app lea o escriba en los app states, facilitando un manejo de datos y una experiencia de usuario consistentes.
+
+
+Mirá [state management](/basics/state_management) para saber cómo se tratan los states en DragBuilder.
+
+---
+
+## Definir un App State
+
+Para crear y manejar app states en DragBuilder, seguí estos pasos:
+
+<Steps>
+1. **Navegá al menú App State**
+    - En tu proyecto de DragBuilder, andá a **Settings** > **App State**.
+
+2. **Agregá un nuevo App State**
+    - Hacé clic en el botón **"Add App State"** para iniciar la creación de un nuevo app state.
+
+3. **Completá los detalles del App State**
+    - **Name**:
+        - Ingresá un nombre descriptivo para tu app state (por ejemplo, `userPreferences`, `isLoggedIn`, `userProfile`).
+    - **Type of the State**:
+        - Seleccioná el tipo de dato adecuado para el state. Las opciones incluyen:
+            - **Primitive Types**: `String`, `Int`, `Boolean`, `Float`, etc.
+            - **Custom Data Types**: Cualquier data type definido dentro de tu proyecto (por ejemplo, `UserProfile`, `Settings`).
+              Mirá la [guía de data type](/guides/data_type) para saber cómo definir un data type personalizado.
+    - **Is List**:
+        - Activá este flag si el app state debe contener una lista de ítems (por ejemplo, `List<String>`, `List<UserProfile>`).
+    - **Default Value (Opcional)**:
+        - Especificá un valor por defecto para el app state, para inicializarlo con un valor predefinido al crearlo.
+
+4. **Guardá el App State**
+    - Después de completar todos los campos necesarios, hacé clic en el botón **"Save"** para finalizar la creación del app state.
+</Steps>
+
+![agregar un nuevo app state](/image/add_new_app_state.png)
+![nuevo app state agregado](/image/after_app_state_added.png)
+
+---
+
+## Usar App States en el UI Builder
+
+Una vez que un app state está definido, podés vincularlo a componentes de UI dentro del UI Builder o manipularlo usando actions.
+
+### **1. Vincular App States a componentes de UI**
+
+Los app states se pueden vincular a distintos elementos de UI para mostrar datos dinámicos o reflejar preferencias del usuario.
+
+**Pasos para vincular un App State:**
+
+<Steps>
+1. **Abrí el UI Builder**
+    - Navegá a la pantalla donde querés usar el app state.
+
+2. **Seleccioná un componente de UI**
+    - Elegí un composable que soporte data binding, como **Text**, **Switch**, **Checkbox**, **Image**, etc.
+
+3. **Vinculá el App State**
+    - Con el composable seleccionado, navegá al **Inspector Panel** de la derecha.
+    - Ubicá la propiedad que querés vincular (por ejemplo, la propiedad **Text** de un composable **Text**).
+    - Hacé clic en el ícono **"Set from State"** junto al input de la propiedad de texto.
+    - En el diálogo **"Set from State"**, seleccioná el app state deseado de la lista.
+    - Confirmá el vínculo para conectar el app state con el componente de UI.
+</Steps>
+
+**Ejemplo: Mostrar el nombre de un usuario**
+
+- **App State**: `nickName` (Tipo: `String`)
+- **Componente de UI**: **Text**
+- **Vínculo**: Vinculá la propiedad **Text** a `userName` para mostrar el nombre del usuario dinámicamente.
+
+<video controls>
+  <source src="/video/bind_app_state_to_text.webm" type="video/webm" />
+</video>
+
+:::note
+Al previsualizar la app, el texto donde está vinculado el app state `nickName` se ve vacío porque
+en este momento no hay ningún valor asignado al app state `nickName`.
+:::
+
+### **2. Configurar App States mediante Actions**
+
+Podés actualizar app states en respuesta a interacciones del usuario u otros eventos usando la action **"Set State"**.
+
+**Pasos para configurar un App State:**
+
+1. **Seleccioná el componente de UI que dispara el cambio**
+    - Elegí el elemento de UI que va a disparar el cambio de state (por ejemplo, un **Button**, **Switch**, **Slider**).
+
+2. **Asigná la action "Set State"**
+    - En el **Inspector Panel**, navegá a la sección **"Events"**.
+    - Hacé clic en **"Add Action"** y seleccioná **"Set State"** de la lista de actions disponibles.
+
+3. **Configurá la action "Set State"**
+    - **Seleccioná el App State**:
+        - Elegí el app state que querés actualizar del menú desplegable.
+    - **Definí el nuevo valor**:
+        - Especificá el nuevo valor para el app state. Puede ser un valor estático, un valor derivado de otro state, o input del usuario.
+
+**Ejemplo: Configurar un App State de tipo string desde el input de un TextField**
+
+- **App State**: `nickName` (Tipo: `String`)
+- **Componente de UI que dispara el cambio**: **Button** que lee el texto de un **TextField**
+- **Action**: Cuando se hace clic en el botón, usá la action **"Set State"** para actualizar el app state `nickName` en consecuencia.
+
+<video controls>
+  <source src="/video/update_app_state.webm" type="video/webm" />
+</video>
+
+---

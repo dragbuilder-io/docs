@@ -1,0 +1,112 @@
+---
+title: Theme
+description: Explica cómo definir themes en DragBuilder
+sidebar:
+  order: 3
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Themes en DragBuilder
+
+Los themes en DragBuilder te permiten personalizar y unificar la apariencia de toda tu aplicación. Configurando themes, podés garantizar un look and feel consistente en todas las pantallas y componentes, mejorando la experiencia de usuario y alineándose con la identidad de tu marca.
+
+---
+
+## Resumen
+
+- **Themes**: Configuraciones centralizadas que definen los aspectos visuales de tu app, incluyendo colores y fuentes.
+- **Personalización**: Modificá fácilmente la apariencia de la app ajustando la configuración del theme.
+- **Consistencia**: Mantené un lenguaje de diseño uniforme en todas las partes de tu aplicación.
+
+---
+
+## Configurar Themes
+
+DragBuilder ofrece herramientas intuitivas para configurar themes, permitiéndote adaptar la apariencia de la app a tus preferencias o requerimientos de marca. Los themes se pueden personalizar definiendo paletas de colores y eligiendo fuentes para los distintos elementos tipográficos.
+
+### **1. Colores**
+
+Los colores cumplen un rol fundamental en la identidad visual de tu app. DragBuilder te permite definir un conjunto completo de colores que se van a aplicar de forma consistente en todos los componentes de UI de tu app.
+
+#### **Generar colores del Theme a partir de un Seed Color**
+
+Para agilizar el proceso de tematización, DragBuilder ofrece la posibilidad de generar una paleta de colores completa a partir de un único seed color y un estilo de paleta seleccionado.
+
+<Steps>
+1. **Hacé clic en el botón "Update colors"**
+2. **Elegí un Seed Color**:
+    - Elegí un color primario que represente tu marca o la estética deseada para tu app.
+
+3. **Seleccioná el estilo de paleta**:
+    - En el menú desplegable, seleccioná el estilo de paleta que mejor se ajuste a tus necesidades de diseño. Las opciones incluyen:
+        - **TonalSpot**: Ofrece un esquema de colores balanceado y armonioso.
+        - **Neutral**: Se enfoca en colores apagados y sutiles para un look minimalista.
+        - **Vibrant**: Presenta colores brillantes y vívidos para una apariencia animada.
+        - **Expressive**: Ofrece colores audaces y dinámicos para generar un fuerte impacto visual.
+        - **Estilos adicionales según corresponda**.
+
+4. **Generá y revisá**:
+    - Hacé clic en el botón **"Generate from Seed"** para crear automáticamente un conjunto armonioso de colores de theme basado en tu seed color y estilo de paleta elegidos.
+    - Revisá los colores generados y hacé ajustes manuales si hace falta para que se ajusten mejor a tus requerimientos de diseño.
+</Steps>
+
+<video controls>
+  <source src="/video/update_theme_colors.webm" type="video/webm" />
+</video>
+
+
+**Beneficios**:
+
+- **Eficiencia**: Generá rápidamente un esquema de colores cohesivo sin tener que elegir cada color manualmente.
+- **Armonía**: Garantiza que todos los colores combinen bien entre sí, manteniendo consistencia visual.
+
+### **2. Fuentes**
+
+La tipografía es esencial para la legibilidad y para transmitir el tono adecuado en tu app. DragBuilder te permite definir y asignar fuentes a distintos elementos tipográficos, garantizando un estilo de texto consistente en toda tu aplicación.
+
+#### **Definir las fuentes usadas en la app**
+
+<Steps>
+1. **Navegá a la sección Fonts**:
+    - Dentro de la configuración de **Themes**, ubicá la pestaña o sección **"Fonts"**.
+
+2. **Elegí las familias de fuentes**:
+    - Seleccioná hasta dos familias de fuentes que se van a usar en los distintos elementos tipográficos.
+    - Por ejemplo, elegí una fuente para los headings y otra para el body text.
+</Steps>
+
+:::note
+Subir una fuente personalizada no está soportado por el momento, pero está en el roadmap.
+:::
+
+#### **Asignar fuentes a los estilos de tipografía**
+
+<Steps>
+1. **Accedé a la configuración de Fonts**:
+    - Dentro de la sección **Fonts**, navegá a **"Typography"**.
+
+2. **Asigná fuentes a los estilos predefinidos**:
+    - DragBuilder ofrece estilos de tipografía predefinidos como **Display Large**, **Display Medium**, **Body Large**, **Body Medium**, etc.
+    - Asigná una de tus fuentes seleccionadas a cada estilo de tipografía.
+
+   **Ejemplo**:
+    - **Display Large**: Asigná la fuente primaria.
+    - **Body Large (Body Text)**: Asigná la fuente secundaria.
+
+3. **Personalizá los atributos de la fuente**:
+    - Ajustá el tamaño, peso y otros atributos según sea necesario para cada estilo de tipografía.
+</Steps>
+
+<video controls>
+  <source src="/video/update_typography.webm" type="video/webm" />
+</video>
+
+:::note
+Aunque podés seleccionar hasta dos familias de fuentes, a cada estilo de tipografía solo se le puede asignar una de esas fuentes, para mantener la consistencia.
+:::
+
+# Otros recursos
+
+- DragBuilder generalmente sigue las guías de Material3.
+  Mirá la [documentación oficial](https://m3.material.io/)

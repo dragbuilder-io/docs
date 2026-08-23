@@ -1,0 +1,69 @@
+---
+title: Custom assets
+description: Explica cómo trabajar con assets personalizados en DragBuilder
+sidebar:
+  order: 4
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Custom Assets en DragBuilder
+
+DragBuilder te permite mejorar el atractivo visual de tu aplicación incorporando assets personalizados, como imágenes e íconos. Subiendo tus propios assets, podés asegurarte de que tu app se alinee perfectamente con la identidad de tu marca y tus preferencias de diseño.
+
+## Subir Custom Assets
+
+<Steps>
+1. Navegá al menú **Custom asset** en DragBuilder.
+2. **Elegí el tipo de asset**:
+    - Decidí si estás subiendo una **Image** o un **Icon**.
+
+3. **Subí el asset**:
+    - Hacé clic en el botón **"Upload Image"** o **"Upload Icon"**.
+    - Seleccioná el archivo deseado de tu computadora.
+        - **Formatos soportados**:
+            - **Images**: PNG, JPEG, SVG
+            - **Icons**: PNG, XML vector drawables
+</Steps>
+
+   ![Subir imagen personalizada](/image/custom_image_uploaded.png))
+   ![Subir ícono personalizado](/image/custom_icon_uploaded.png))
+
+---
+
+## Usar Custom Assets en el UI Builder
+
+Una vez que tus assets personalizados están subidos, podés incorporarlos fácilmente a la UI de tu aplicación usando los composables **Image** e **Icon**.
+
+### **Usar Custom Assets en un composable Image**
+
+<Steps>
+1. **Agregá un composable Image**:
+    - En el **UI Builder**, arrastrá y soltá un composable **Image** en el **Canvas Area**.
+
+2. **Configurá el tipo de imagen**:
+    - Con el composable **Image** seleccionado, navegá al **Inspector panel** de la derecha.
+    - En el dropdown **"Image Type"**, seleccioná **"Asset"**.
+
+3. **Seleccioná tu Custom Asset**:
+    - Va a aparecer un dropdown listando todos tus custom assets subidos.
+    - Elegí la imagen deseada de la lista.
+
+   ![Imagen personalizada en el UI builder](/image/custom_image_in_uibuilder.png)
+
+</Steps>
+
+### **Usar Custom Assets en un composable Icon**
+
+1. **Agregá un composable Icon**:
+    - En el **UI Builder**, arrastrá y soltá un composable **Icon** en el **Canvas Area**.
+
+2. **Configurá el tipo de ícono**:
+    - Con el composable **Icon** seleccionado, navegá al **Inspector panel** de la derecha.
+    - En el dropdown **"Icon Type"**, seleccioná **"Custom Asset"**.
+
+3. **Seleccioná tu Custom Asset**:
+    - Va a aparecer un dropdown listando todos tus íconos personalizados subidos.
+    - Elegí el ícono deseado de la lista.
+
+   ![Ícono personalizado en el UI builder](/image/custom_icon_in_uibuilder.png)

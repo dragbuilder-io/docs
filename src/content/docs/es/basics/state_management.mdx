@@ -1,0 +1,131 @@
+---
+title: Entendiendo los states
+description: Explica cómo trabajar con states en DragBuilder
+sidebar:
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Entendiendo los States en DragBuilder
+
+En DragBuilder, el **state** es un concepto fundamental que impulsa el comportamiento dinámico de tu aplicación. Manejar el state de forma efectiva permite que tu UI reaccione a cambios de datos sin fricciones, dando una experiencia de usuario reactiva e interactiva. Este documento te va a ayudar a entender los fundamentos del state en DragBuilder y cómo trabajar con jerarquías de states.
+
+---
+
+## Fundamentos del State
+
+### ¿Qué es un State?
+
+- El **State** se refiere a cualquier valor en tu app que puede cambiar con el tiempo.
+- Representa los datos o condiciones actuales que determinan cómo se comporta tu app y qué muestra.
+
+### Cómo funciona el State en DragBuilder
+
+- **UI declarativa**: DragBuilder genera apps usando Compose Multiplatform, siguiendo los mismos principios que Jetpack Compose, que está construido sobre un enfoque de UI declarativa. Esto significa que la UI es un reflejo del state actual.
+- **Actualizaciones automáticas**: Cuando el state cambia, la UI se actualiza automáticamente para reflejar esos cambios.
+
+### Asignar State a valores
+
+- **Vincular State a elementos de UI**: Podés asignar un state a una propiedad de un composable. Por ejemplo, el valor de un composable `TextField` se puede vincular a una variable de state.
+- **Actualizaciones reactivas**: Una vez que se asigna un state, cualquier cambio en el state se refleja inmediatamente en todos los elementos de UI vinculados, gracias a la naturaleza declarativa de DragBuilder.
+
+### Ejemplo: Vincular un TextField y un Text
+
+- **Manejo de input del usuario**: Cuando tenés un composable `TextField` donde los usuarios pueden ingresar texto, podés vincular su state para mostrar el input en otro lugar de tu app.
+- **Reflejo en tiempo real**: A medida que el usuario escribe en el `TextField`, cualquier composable `Text` vinculado al mismo state se va a actualizar en tiempo real para mostrar el input actual.
+
+---
+
+## Jerarquía de States
+
+El manejo de state en DragBuilder está organizado jerárquicamente para dar alcance y control sobre dónde y cómo se usan los states.
+
+### Tipos de States
+
+1. **App States**:
+    - **Alcance global**: Visibles y accesibles en toda la aplicación.
+    - **Casos de uso**: Ideales para datos que necesitan compartirse entre varias pantallas o components, como el estado de autenticación del usuario o configuraciones globales.
+     Mirá [App state](/guides/app_state) para saber cómo definir app states
+
+2. **Local States**:
+    - **Visibilidad con alcance limitado**: Visibles solo dentro de la pantalla o component donde se definen.
+    - **Casos de uso**: Adecuados para datos relevantes solo para una parte específica de la UI, como inputs de formularios o estados de toggles.
+
+### Estructura de la jerarquía de States
+
+- En DragBuilder, los components no pertenecen a ninguna pantalla específica, y tanto las pantallas como los components pueden tener sus propios local states.
+- La jerarquía de states tiene esencialmente dos niveles:
+    - **App State**: Nivel global.
+    - **Local State**: Incluye tanto los states de pantalla como los states de components, al mismo nivel.
+
+### Companion States implícitos
+
+- **Creación automática de State**:
+    - Los composables con valores de entrada tienen automáticamente **companion states implícitos** por defecto.
+    - Estos states manejan el valor actual del composable sin necesitar configuración manual.
+
+- **Composables de entrada con Companion States**:
+    - **TextField**: Crea automáticamente un state para guardar el valor del texto ingresado
+    - **Checkbox**: Crea un state boolean para hacer seguimiento del estado marcado/no marcado
+    - **Slider**: Mantiene un state numérico para la posición actual del slider
+    - **Switch**: Tiene un state boolean para el estado on/off
+    - **RadioButton**: Hace seguimiento del state de selección dentro de un grupo
+
+:::tip[Ejemplo con TextField]
+Por ejemplo, al soltar un TextField en el canvas, el companion state se crea automáticamente.
+
+![Companion state TextField](/image/companion_state_textfield.png)
+![Companion state en el diálogo de states](/image/companion_state_in_state_dialog.png)
+
+:::
+
+- **Beneficios**:
+    - **Facilidad de uso**: No hace falta configurar states manualmente para el manejo básico de inputs
+    - **Funcionalidad inmediata**: Los composables de entrada funcionan de entrada con el manejo de state
+    - **Encapsulamiento**: Cada composable maneja su propio state automáticamente
+
+---
+
+## Ejemplos prácticos
+
+### Ejemplo 1: Vincular un TextField a un composable Text
+
+- **Escenario**: Querés mostrar el input del usuario de un `TextField` en otro lugar de la pantalla.
+- **Implementación**:
+    - El `TextField` tiene un local state creado automáticamente que representa su valor de input.
+    - Podés vincular un composable `Text` al mismo state para mostrar el input en tiempo real.
+
+<video controls>
+  <source src="/video/state_demo_textfield_text.webm" type="video/webm" />
+</video>
+
+### Ejemplo 2: Manejar states de Toggle en un composable
+
+- **Escenario**: Tenés un composable de switch personalizado que cambia la apariencia de otro composable
+al activarse.
+- **Implementación**:
+    - El composable `Switch` crea un local state boolean para hacer seguimiento de si está activado o no.
+    - Soltá un composable `Card` en el canvas area
+    - Vinculá el state del `Switch` a la propiedad `Visibility` del `Card`
+    - El cambio de state afecta la visibilidad del `Card`, sin impactar otras partes de la app.
+
+<video controls>
+  <source src="/video/state_toggle_visibility.webm" type="video/webm" />
+</video>
+
+
+### Ejemplo 3: Compartir datos entre Components con App State
+
+- **Escenario**: Varios components necesitan mostrar el puntaje actual del usuario en un juego.
+- **Implementación**:
+    - Una variable de app state guarda el puntaje del usuario.
+    - Todos los components y pantallas relevantes se vinculan a este app state para mostrar el puntaje actualizado de forma consistente.
+
+---
+
+## Puntos clave
+
+- **El State impulsa la UI**: En DragBuilder, la UI es un reflejo directo del state actual. Los cambios en el state disparan automáticamente actualizaciones de UI.
+- **Jerarquía de dos niveles**: Los states se organizan en app states (globales) y local states (específicos de pantallas o components).
+- **Manejo automático de State**: DragBuilder simplifica el manejo de states creando automáticamente local states para ciertos composables.

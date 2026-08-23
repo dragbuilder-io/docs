@@ -1,0 +1,46 @@
+---
+title: State transformers
+description: Explica los state transformers en DragBuilder
+sidebar:
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+Los state transformers en DragBuilder son una forma poderosa de manipular y transformar los states seleccionados en el diálogo "Set from state". Permiten hacer modificaciones, chequeos y conversiones de states al vuelo antes de usarlos, dándote flexibilidad y control sobre el flujo de datos en DragBuilder.
+
+## Funcionalidades
+
+### Transformar states seleccionados
+Después de seleccionar un state en el diálogo "Set from state", podés aplicar uno o más transformers para modificar o evaluar el dato de ese state. Esto es especialmente útil para lógica condicional, formateo de datos y otras transformaciones directamente dentro del entorno de DragBuilder.
+
+### Caso de uso de ejemplo
+Supongamos que tenés un state que guarda un string, como `"Hello, DragBuilder!"`. Si querés chequear si ese string contiene la palabra `"DragBuilder"`, podés aplicar el transformer `contains` para evaluarlo y usar el resultado en tu lógica.
+
+![state_transformer_example](/image/state_transformer_example.png)
+
+### Transformers específicos por tipo
+DragBuilder ofrece distintos transformers según el tipo de dato del state seleccionado. Por ejemplo:
+
+- **String Transformers**: Incluye operaciones como:
+   - Transformar un `String` en otro `String`
+     - `Add string before`, `Add string after`
+   - Transformar un `String` en `Boolean`
+     - `Contains`, `Starts with` y `Ends with`.
+- **Boolean Transformers**: Permite operaciones lógicas, como `Toggle value` (para invertir un boolean).
+- **Int Transformers**: Incluye operaciones como:
+   - Transformar un `Int` en otro `Int`
+     - `Plus`, `Multiplied by`
+   - Transformar un `Int` en `Boolean`
+     - `Less than`, `Less than or equal to`, `Equals`, `Greater than`, `Greater than or equal to` y `Mod equal to`.
+
+Los transformers disponibles dependen del tipo de dato del state seleccionado.
+
+### Encadenar transformers
+DragBuilder te permite encadenar varios transformers para hacer transformaciones complejas en secuencia.
+Por ejemplo, podés primero chequear si un string contiene "DragBuilder" y después negar el valor boolean.
+Esto se hace seleccionando el primer transformer y después aplicando transformers adicionales al resultado de cada transformación.
+
+![transformers_chained](/image/transformers_chained.png)
+
+Esta capacidad de encadenar varios transformers en DragBuilder te permite hacer transformaciones lógicas complejas sobre los datos de forma sencilla.

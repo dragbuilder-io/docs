@@ -1,0 +1,101 @@
+---
+title: External API
+description: Explica cómo trabajar con APIs externas en DragBuilder
+sidebar:
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Integración de APIs externas en DragBuilder
+
+Integrar APIs externas en tu aplicación de DragBuilder te permite obtener y mostrar datos dinámicos, mejorando la funcionalidad y la experiencia de usuario de tu app. Esta guía te va a llevar por los pasos para definir y configurar una API externa dentro de DragBuilder.
+
+---
+
+## Resumen
+
+- **APIs externas**: Servicios que proveen datos o funcionalidades que tu app puede consumir.
+- **Integración de API**: El proceso de conectar tu app de DragBuilder a APIs externas para obtener, mostrar y manipular datos.
+- **Fuentes de datos dinámicas**: Usar las respuestas de la API como fuentes de datos para componentes de UI, habilitando funcionalidades en tiempo real e interactivas.
+
+---
+
+## Pasos para definir una API externa
+
+Seguí estos pasos para definir y configurar una API externa en DragBuilder:
+<Steps>
+1. **Navegá al menú API**
+    - En tu proyecto de DragBuilder, andá al menú **API** en la navegación lateral.
+
+2. **Agregá una nueva API**
+    - Hacé clic en el botón **"Add API"** para iniciar el proceso de creación de la API.
+
+3. **Completá los campos requeridos**
+    - **Name of the API**:
+        - Ingresá un nombre descriptivo para tu API (por ejemplo, **"WeatherService"**, **"UserProfileAPI"**).
+    - **URL of the Endpoint**:
+        - Ingresá la URL completa del endpoint de la API al que te querés conectar (por ejemplo, `https://api.example.com/v1/users`).
+    - **HTTP Method (Opcional)**:
+        - Seleccioná el método HTTP requerido para la llamada a la API (por ejemplo, **GET**, **POST**, **PUT**, **DELETE**).
+        - Si no se especifica, DragBuilder puede usar **GET** por defecto.
+    - **Query Parameters o URL Parameters (Opcional)**:
+        - Agregá los query parameters o URL parameters necesarios que requiera el endpoint de la API.
+        - Por ejemplo, para una API de clima: `?location=Tokyo&units=metric`.
+
+4. **Probá la API**
+    - Hacé clic en el botón **"Test API"** para hacer una llamada de prueba al endpoint especificado.
+
+5. **Seleccioná el elemento JSON a exponer**
+    - Una vez que la llamada a la API sea exitosa, va a aparecer un ejemplo de respuesta del lado derecho del panel.
+    - **Seleccioná el elemento JSON**:
+        - Identificá y seleccioná el elemento JSON que querés exponer como resultado de la API.
+        - **Para data binding como elementos dinámicos**:
+            - Si pensás vincular la respuesta de la API como fuente de datos para elementos dinámicos (por ejemplo, listas o grillas), seleccioná un elemento JSON de tipo **array** (por ejemplo, `users`, `plants`).
+
+6. **Guardá la definición de la API**
+    - Hacé clic en el botón **"Save"** para finalizar la configuración de la API.
+    - Va a aparecer un mensaje de confirmación indicando que la API se agregó correctamente.
+</Steps>
+![Ejemplo de definición de API](/image/api_definition_example.png))
+
+
+:::note
+Podés parametrizar los valores de los headers HTTP o los query parameters para pasar parámetros dinámicamente
+al invocar la action "Call API".
+
+![Definición de API parametrizada](/image/api_definition_parameterized.png)
+
+![Parámetro de API vinculado desde una action](/image/api_parameterized_bind_from_action.png)
+
+:::
+---
+
+## Vincular resultados de la API en el UI Builder
+
+Una vez que la API está definida y configurada, podés vincular sus resultados a componentes de UI dentro del UI Builder. Esto permite que tu app muestre datos dinámicos obtenidos de la API externa.
+
+<Steps>
+1. Abrí el UI Builder
+
+    - Hacé clic en **"UI Builder"** para entrar a la interfaz de diseño.
+    - Navegá a la pantalla donde querés mostrar los datos de la API.
+
+2. Vinculá el resultado de la API a un componente de UI
+
+    - **Seleccioná un componente de UI**:
+      - Elegí un composable que pueda mostrar los datos, como **List**, **`LazyColumn`**, **`LazyRow`** o **`LazyVerticalGrid`** para listas dinámicas.
+
+    - **Configurá la fuente de datos**:
+      - Mirá la página de [Número dinámico de elementos](#dynamic-number-of-items-in-dragbuilder) para instrucciones detalladas sobre cómo vincular una fuente de datos de tipo lista a elementos de UI.
+</Steps>
+
+### Pasos rápidos:
+<Steps>
+    1. Definí un state de tipo lista si todavía no lo hiciste.
+    2. Agregá un **`LazyColumn`** (o similar) a tu pantalla.
+    3. Vinculá el resultado de la API (por ejemplo, `List<Plant>`) al composable lazy.
+    4. Diseñá la plantilla de ítem para mostrar los elementos de datos individuales.
+    5. Probá el vínculo
+        - Usá la función **Preview** o desplegá la app en un dispositivo/emulador para asegurarte de que los datos de la API se muestren correctamente en el componente de UI.
+</Steps>

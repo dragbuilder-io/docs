@@ -14,6 +14,11 @@ export default defineConfig({
 				alt: 'DragBuilder Logo',
 			},
 			customCss: ['./src/styles/orbit-theme.css'],
+			defaultLocale: 'root',
+			locales: {
+				root: { label: 'English', lang: 'en' },
+				es: { label: 'Español', lang: 'es' },
+			},
 			sidebar: [{
                 	label: 'Getting started',
                 	autogenerate: { directory: 'getting_started' },

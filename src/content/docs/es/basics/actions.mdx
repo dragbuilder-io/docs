@@ -1,0 +1,225 @@
+---
+title: Actions
+description: Explica cómo trabajar con actions en DragBuilder
+sidebar:
+  order: 3
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Entendiendo las Actions en DragBuilder
+
+En DragBuilder, las **Actions** son comportamientos predefinidos que se disparan principalmente por interacciones del usuario o eventos específicos dentro de tu aplicación. Las actions te permiten definir cómo responde tu app ante inputs del usuario, cambios de navegación u otros eventos, permitiéndote crear experiencias de usuario interactivas y dinámicas sin escribir código.
+
+---
+
+## ¿Qué son las Actions?
+
+- Las **Actions** son operaciones predefinidas que se pueden asignar a elementos de UI o disparar por ciertos eventos en tu app.
+- Te permiten especificar qué debe pasar en respuesta a interacciones del usuario, como clicks, swipes o carga de pantallas.
+- Las actions pueden realizar una variedad de tareas, incluyendo navegar entre pantallas, mostrar mensajes, actualizar states o llamar a APIs externas.
+
+---
+
+## Cómo funcionan las Actions en DragBuilder
+
+### Triggers
+
+- Los **Triggers** son eventos que inician una action. Están asociados a composables (elementos de UI) y dependen del tipo de composable.
+- Triggers comunes incluyen:
+  - **onClick**: Se dispara cuando un usuario hace clic en un botón o elemento clickeable.
+  - **onValueChange**: Se dispara cuando cambia el valor de un campo de entrada.
+  - **onInitialLoad**: Se dispara cuando una pantalla se vuelve visible por primera vez.
+
+### Asignar Actions a Triggers
+
+- Podés asignar una o más actions a un trigger asociado a un composable.
+- Cuando ocurre el evento del trigger, las actions asignadas se ejecutan en el orden en que se agregaron.
+- Esto te permite definir comportamientos complejos en respuesta a una sola interacción del usuario.
+
+---
+
+## Ejemplos de Actions y Triggers
+
+### Ejemplo 1: Mostrar un Snackbar al hacer clic en un botón
+
+- **Trigger**: evento `onClick` de un composable **Button**.
+- **Action**: Mostrar un mensaje de **Snackbar** al usuario.
+
+**Cómo implementarlo:**
+
+<Steps>
+
+1. **Agregá un composable Button**: Colocá un botón en tu pantalla desde la librería de componentes.
+2. **Asigná una Action**:
+   - Seleccioná el botón y navegá al **Inspector panel**.
+   - En la pestaña **"Actions"**, buscá el trigger `onClick`.
+   - Hacé clic en **"Add Action"** y elegí **"Show Snackbar"** de la lista de actions.
+   - Ingresá el mensaje que querés mostrar, por ejemplo, **"¡Botón clickeado!"**.
+3. **Probá la Action**:
+   - Corré tu app y hacé clic en el botón para ver aparecer el snackbar.
+
+</Steps>
+
+<video controls>
+  <source src="/video/action_demo_snackbar.webm" type="video/webm" />
+</video>
+
+### Ejemplo 2: Navegar a una pantalla de detalle al seleccionar un ítem de la lista
+
+- **Trigger**: evento `onItemSelected` de un composable **List** o **Dropdown**.
+- **Action**: Navegar a una pantalla distinta según el ítem seleccionado.
+
+**Cómo implementarlo:**
+
+1. **Agregá un composable de lista**: Colocá un `LazyColumn` en tu pantalla que contenga ítems seleccionables.
+   - Vinculá la fuente de datos al `LazyColumn`.
+   - Soltá un composable `Row` dentro del `LazyColumn` y ajustá los demás composables para representar un
+     ítem seleccionable.
+
+     Mirá [elementos dinámicos](/advanced_ui/dynamic_items) para más detalles sobre cómo
+     generar un número dinámico de hijos en el LazyColumn.
+2. **Asigná una Action**:
+   - Seleccioná el `Row` como hijo directo del `LazyColumn` y ubicá el trigger `onClick` en el **Inspector panel**.
+   - Hacé clic en **"Add Action"** y elegí **"Navigate to Screen"**.
+   - Seleccioná la pantalla de destino a la que querés navegar.
+3. **Configurá la navegación**:
+   - Opcionalmente, pasá parámetros o datos a la pantalla de destino si hace falta.
+4. **Probá la Action**:
+   - Corré tu app y seleccioná un ítem de la lista para navegar a la nueva pantalla.
+
+<video controls>
+  <source src="/video/action_demo_click_to_navigate.webm" type="video/webm" />
+</video>
+
+### Ejemplo 3: Llamar a una API externa al cargar una pantalla
+
+- **Trigger**: evento `onInitialLoad` de una **Screen**.
+- **Action**: Obtener datos de una API externa y mostrarlos.
+
+**Cómo implementarlo:**
+
+1. **Seleccioná la pantalla**: Abrí la pantalla donde querés obtener datos al cargar.
+2. **Asigná una Action**:
+   - En el **Inspector panel**, buscá el trigger `onInitialLoad`.
+   - Hacé clic en **"Add Action"** y elegí **"Call External API"**.
+   - Configurá el endpoint de la API, el método de request y los headers o parámetros necesarios.
+3. **Vinculá los datos a la UI**:
+   - Usá los datos devueltos por la API para poblar composables en tu pantalla.
+4. **Probá la Action**:
+   - Corré tu app y navegá a la pantalla para ver los datos obtenidos y mostrados.
+
+---
+
+## Tipos de Actions
+
+DragBuilder ofrece una variedad de actions que podés usar para definir el comportamiento de tu app:
+
+- **Navigation Actions**:
+  - **Navigate to Screen**: Cambia a una pantalla distinta dentro de tu app.
+  - **Go Back**: Vuelve a la pantalla anterior.
+
+- **Display Actions**:
+  - **Show Snackbar**: Muestra un mensaje breve en la parte inferior de la pantalla.
+  - **Show Dialog**: Presenta un diálogo modal con contenido personalizado.
+
+- **State Management Actions**:
+  - **Update State**: Modifica el valor de una variable de state.
+  - **Reset State**: Reinicia una variable de state a su valor por defecto.
+  - **Conditional State Actions**: Ejecuta distintas actualizaciones de state según condiciones.
+
+- **Data Actions**:
+  - **Call External API**: Hace requests HTTP a servicios externos.
+  - **Load Data**: Obtiene datos de una fuente local o remota.
+
+- **Media Actions**:
+  - **Play Sound**: Reproduce un clip de audio.
+  - **Open URL**: Abre un navegador web hacia una URL específica.
+
+- **Miscellaneous Actions**:
+  - **Trigger Animation**: Inicia una secuencia de animación.
+  - **Custom Action**: Define comportamientos personalizados usando integraciones o extensiones.
+
+:::note
+Algunas actions no están implementadas en la versión alpha de DragBuilder, como las media actions o
+las custom actions. Estate atento a futuras actualizaciones.
+:::
+
+---
+
+## Asociar Actions con Composables
+
+### Entendiendo los triggers de composables
+
+- Distintos composables soportan distintos conjuntos de triggers según su funcionalidad.
+- **Button**:
+  - Trigger: `onClick`
+- **TextField**:
+  - Trigger: `onSubmit`, `onChange`, `onFocused`, `onUnfocused`
+- **Switch**:
+  - Trigger: `onChange`
+- **Screen**:
+  - Trigger: `onInitialLoad`
+
+### Pasos para asignar Actions
+
+1. **Seleccioná el composable**: Hacé clic en el elemento de UI en el canvas de diseño.
+2. **Accedé al Inspector panel**: Del lado derecho de la interfaz.
+3. **Ubicá la sección de Actions**: Encontrá la lista de triggers disponibles para el composable seleccionado.
+4. **Agregá una Action**:
+   - Hacé clic en el evento trigger deseado.
+   - Hacé clic en **"Add Action"** y elegí de la lista de actions predefinidas.
+5. **Configurá la Action**: Configurá los parámetros u opciones necesarios para la action.
+
+---
+
+## Buenas prácticas para usar Actions
+
+- **Mantenelo simple**: Empezá con actions básicas para entender cómo funcionan antes de combinar varias.
+- **El orden importa**: Al asignar varias actions a un mismo trigger, el orden en que se ejecutan puede afectar el resultado.
+- **Probá exhaustivamente**: Siempre probá tus actions para asegurarte de que se comporten como se espera en distintos escenarios.
+- **Manejá las dependencias**: Tené cuidado con actions que dependen de los resultados de actions anteriores. Asegurate de que los datos estén disponibles cuando se necesiten.
+
+---
+
+## Uso avanzado
+
+### Combinar varias Actions
+
+- Podés asignar varias actions a un mismo trigger para realizar una secuencia de operaciones.
+- **Ejemplo**:
+  - **Trigger**: `onClick` de un botón **Submit**.
+  - **Actions**:
+    1. **Validate Input**: Chequea si los campos requeridos están completos.
+    2. **Call External API**: Envía los datos a un servidor.
+    3. **Navigate to Screen**: Pasa a una pantalla de confirmación si tiene éxito.
+    4. **Show Snackbar**: Muestra un mensaje de éxito o error.
+
+### Actions condicionales
+
+- Algunas actions te permiten definir condiciones bajo las cuales se ejecutan.
+- **Ejemplo**:
+  - Navegar a la siguiente pantalla solo si la llamada a la API devuelve una respuesta exitosa.
+
+### Custom Actions
+
+- Para usuarios avanzados, DragBuilder puede ofrecer la posibilidad de crear actions personalizadas mediante integraciones o usando capacidades de scripting.
+
+:::caution
+A la fecha de la versión alpha de DragBuilder, las custom actions no están implementadas, pero están en el roadmap.
+:::
+---
+
+## Entendiendo las limitaciones
+
+- **Triggers específicos por composable**: No todos los composables soportan todos los tipos de triggers. Familiarizate con los triggers disponibles para cada composable.
+- **Restricciones de plataforma**: Algunas actions pueden comportarse distinto entre plataformas (Android, iOS, Web). Probá tu app en todas las plataformas de destino.
+- **Consideraciones de rendimiento**: Actions excesivas o complejas pueden impactar el rendimiento de la app. Optimizá donde sea necesario.
+
+---
+
+## Conclusión
+
+Las Actions en DragBuilder te permiten definir comportamientos interactivos en tu app sin escribir código. Entendiendo cómo asignar actions a triggers y aprovechando la variedad de actions disponibles, podés crear experiencias de usuario ricas y dinámicas que responden de forma intuitiva a las interacciones del usuario.
+
+---

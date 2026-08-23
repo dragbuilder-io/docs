@@ -1,0 +1,217 @@
+---
+title: Número dinámico de elementos
+description: Explica cómo generar un número dinámico de elementos en DragBuilder
+sidebar:
+  order: 0
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+# Número dinámico de elementos en DragBuilder
+
+En DragBuilder, ciertos composables como **`LazyColumn`**, **`LazyRow`** y **`LazyVerticalGrid`** te permiten generar un número dinámico de elementos hijos según tus fuentes de datos. Esto es particularmente útil cuando querés mostrar listas o grillas de datos que pueden cambiar de tamaño, como:
+
+- Vincular a app states que contienen listas de un data type.
+- Mostrar resultados de APIs externas que devuelven respuestas JSON de longitud variable.
+
+---
+
+## Resumen
+
+- **Composables Lazy**: Composables especiales que muestran de forma eficiente datasets grandes o dinámicos, renderizando solo los elementos actualmente visibles en pantalla.
+- **Fuentes de datos**: Listas o colecciones de datos que vinculás a composables lazy para generar elementos de UI dinámicamente.
+- **Elementos dinámicos**: Los elementos de UI individuales que representan cada ítem en tu fuente de datos.
+
+---
+
+## Pasos para implementar elementos dinámicos
+
+Seguí estos pasos para crear una lista o grilla dinámica en tu app de DragBuilder:
+
+### **Paso 1: Definí un state de tipo List**
+
+<Steps>
+1. **Creá o importá un Data Type**:
+
+    - Navegá a "Data Type" en el menú de DragBuilder.
+    - Creá un data type, por ejemplo, definí uno llamado `Plant` con propiedades como `name`, `description` e `imageUrl`.
+
+2. **Creá un state de tipo List**:
+
+    - Navegá al **App state** en el menú de DragBuilder.
+    - Agregá un nuevo state de tipo `List<Plant>`.
+    - Inicializalo con datos de ejemplo (asumiendo que los datos iniciales se crean a partir de un [json como el de la app Sunflower](https://github.com/android/sunflower/blob/main/app/src/main/assets/plants.json)).
+</Steps>
+
+<video controls>
+  <source src="/video/create_list_data_type.webm" type="video/webm" />
+</video>
+
+:::note
+Alternativamente, podés definir otros tipos de state de lista, como la lista de respuesta JSON al
+llamar a una API externa.
+:::
+
+### **Paso 2: Agregá un composable Lazy a tu pantalla**
+
+<Steps>
+1. **Abrí el UI Builder**:
+
+    - Andá a la pantalla donde querés mostrar la lista o grilla dinámica.
+
+2. **Agregá un composable Lazy**:
+
+    - Desde la **Components Library**, arrastrá y soltá un **`LazyColumn`**, **`LazyRow`** o **`LazyVerticalGrid`** en tu canvas.
+    - **`LazyColumn`**: Para listas verticales.
+    - **`LazyRow`**: Para listas horizontales.
+    - **`LazyVerticalGrid`**: Para layouts de grilla.
+</Steps>
+
+### **Paso 3: Enfocá el composable Lazy**
+
+- Hacé clic en el composable lazy que acabás de agregar para seleccionarlo.
+- Asegurate de que esté resaltado en el **Canvas Area** y que sus propiedades sean visibles en el **Inspector panel**.
+
+![Lazy column enfocado](/image/lazy_column_focused.png)
+
+### **Paso 4: Vinculá la fuente de datos**
+
+<Steps>
+1. **Accedé a la sección Dynamic Items**:
+
+    - En el **Inspector panel**, ubicá la sección **"Dynamic Items"**.
+
+2. **Agregá una fuente de datos**:
+
+    - Hacé clic en el botón **"+"** dentro de la sección **"Dynamic Items"**.
+    - Aparecerá un diálogo pidiéndote que selecciones una fuente de datos.
+
+3. **Seleccioná la fuente de datos**:
+
+    - Elegí el state de lista que creaste antes (por ejemplo, `List<Plant>`).
+    - Confirmá tu selección para vincular la fuente de datos al composable lazy.
+</Steps>
+
+### **Paso 5: Agregá un composable hijo**
+
+<Steps>
+1. **Agregá una plantilla de ítem**:
+
+    - Arrastrá y soltá un composable (por ejemplo, **Card**, **Row**, **Column**) dentro del composable lazy.
+    - Este composable servirá como plantilla para cada ítem de tu lista.
+
+   **Nota**: Solo **un hijo directo** del composable lazy puede vincularse al ítem dinámico.
+
+2. **Diseñá el layout del ítem**:
+
+    - Dentro de la plantilla del ítem, agregá los elementos de UI necesarios para mostrar los datos.
+    - Por ejemplo, agregá una **Image** para `imageUrl` y composables **Text** para `name` y `species`.
+</Steps>
+
+### **Paso 6: Vinculá las propiedades del ítem a los campos de datos**
+
+<Steps>
+1. **Seleccioná los elementos de UI**:
+
+    - Hacé clic en cada composable dentro de tu plantilla de ítem (por ejemplo, **Text**, **Image**).
+
+2. **Vinculá a las propiedades del ítem dinámico**:
+
+    - En el **Inspector panel**, buscá la propiedad que querés vincular (por ejemplo, **"Text"** para un composable **Text**).
+    - Hacé clic en **"Set from State"** o en el ícono de vínculo junto a la propiedad.
+    - Aparecerá un diálogo mostrando los states disponibles.
+
+3. **Seleccioná las propiedades del ítem dinámico**:
+
+    - Vas a ver las propiedades del data type (por ejemplo, `Plant.name`, `Plant.species`).
+    - Seleccioná la propiedad adecuada para vincularla al elemento de UI.
+</Steps>
+
+<video controls>
+  <source src="/video/binding_properties_from_dynamic_items.webm" type="video/webm" />
+</video>
+
+:::note
+Solo un hijo directo puede vincularse con los elementos dinámicos.
+
+Por ejemplo, este es un caso válido
+
+```
+LazyColumn
+ - Row (como header)
+ - Row (se asignan elementos dinámicos y genera un número dinámico de elementos)
+ - Row (como footer)
+```
+
+pero este es inválido
+
+```
+LazyColumn
+ - Row (como header)
+ - Row (se asignan elementos dinámicos)
+ - Row (se asignan elementos dinámicos para propiedades distintas)
+ - Row (como footer)
+```
+:::
+
+### **Paso 7: Configurá y probá**
+
+<Steps>
+1. **Ajustá modifiers y estilos**:
+
+    - Aplicá los modifiers necesarios para darle estilo a tu plantilla de ítem (por ejemplo, padding, color de fondo).
+
+2. **Previsualizá la lista**:
+
+    - Usá la función **Preview** para ver cómo se ve tu lista o grilla dinámica con los datos vinculados.
+
+3. **Probá las interacciones**:
+
+    - Si tus ítems son interactivos, agregá las actions necesarias y probalas en el preview o en un dispositivo.
+</Steps>
+
+---
+
+## Notas importantes
+
+- **Regla del hijo directo único**:
+
+    - El composable lazy puede tener solo **un hijo directo** vinculado al ítem dinámico.
+    - Ese hijo sirve como plantilla para cada ítem de la fuente de datos.
+
+- **Modifiers y layouts**:
+
+    - Aplicá modifiers al composable hijo para controlar espaciado, alineación y estilo.
+    - Usá layouts como **Row** o **Column** dentro de la plantilla del ítem para organizar el contenido.
+
+- **Actualización de datos**:
+
+    - Si la lista de la fuente de datos se actualiza (por ejemplo, se agregan o eliminan ítems), la UI reflejará automáticamente esos cambios gracias a la naturaleza declarativa de DragBuilder.
+
+:::tip
+
+Una vez que un ítem dinámico se asigna a un composable lazy, el **índice** de cada ítem en la lista queda disponible como variable de state. Podés usar ese índice para cambiar la apariencia de los ítems según su posición en la lista.
+
+**Ejemplo: Fondos alternados por ítem**
+
+- **Objetivo**: Cambiar el color de fondo de los ítems de forma alternada (por ejemplo, los ítems pares tienen un color, los impares otro).
+- **Cómo implementarlo**:
+  - Accedé al state `LazyColumnProperties -> Index at` dentro de tu plantilla de ítem.
+  - Usá lógica condicional o filtros para aplicar distintos modifiers según si el índice es par o impar.
+- **Pasos**:
+<Steps>
+  1. **Seleccioná la plantilla del ítem**:
+     - Hacé clic en el composable hijo dentro de tu composable lazy.
+  2. **Accedé al state Index**:
+     - En el **Inspector panel**, el state `Index` está disponible.
+  3. **Aplicá el estilo condicional**:
+     - Usá el índice para establecer colores de fondo:
+       - Si `Index % 2 == 0`, poné el fondo en Color A usando **filters**.
+       - Si no, poné el fondo en Color B.
+</Steps>
+
+<video controls>
+  <source src="/video/lazy_item_index_demo.webm" type="video/webm" />
+</video>
+
+:::
