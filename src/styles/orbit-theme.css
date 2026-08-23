@@ -1,0 +1,19 @@
+/* Fondo de superficies con los tokens reales de Orbit — sin esto, Starlight
+   muestra su gris oscuro default (#17181c) sin tematizar. */
+@import "@dragbuilder-io/design-tokens/dist/css/tokens.css";
+
+/* color.surface.* es dark-mode-only por ahora (no hay equivalente para
+   light theme todavía), por eso va scoped a :root[data-theme="dark"] y no
+   a :root[data-theme="light"]. */
+:root[data-theme="dark"] {
+  --sl-color-bg: var(--color-surface-background);
+  --sl-color-bg-nav: var(--color-surface-background-secondary);
+  --sl-color-bg-sidebar: var(--color-surface-background-secondary);
+}
+
+/* Starlight no tiene var propia para el panel derecho "On this page" —
+   hereda --sl-color-bg como el contenido, con un borde como único
+   separador. Se targetea directo porque no hay nada de qué colgarse. */
+:root[data-theme="dark"] .right-sidebar-container {
+  background: var(--color-surface-background-secondary);
+}

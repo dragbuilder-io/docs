@@ -13,6 +13,7 @@ export default defineConfig({
 				src: './logo.svg',
 				alt: 'DragBuilder Logo',
 			},
+			customCss: ['./src/styles/orbit-theme.css'],
 			sidebar: [{
                 	label: 'Getting started',
                 	autogenerate: { directory: 'getting_started' },
