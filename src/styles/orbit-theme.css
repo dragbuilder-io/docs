@@ -28,3 +28,10 @@
 :root[data-theme="light"] .right-sidebar-container {
   background: var(--color-surface-background-secondary);
 }
+
+/* Starlight's own "copy code" feedback (its default green "Copied!"
+   pill) is replaced site-wide by a real OrbitToast — see
+   src/components/Head.astro for the click listener that spawns it. */
+.expressive-code .copy .feedback {
+  display: none !important;
+}

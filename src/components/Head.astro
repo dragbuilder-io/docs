@@ -1,0 +1,56 @@
+---
+// Overrides Starlight's own <Head> just to append one more global
+// <script> after its defaults — this is the only place a script runs on
+// every single page without editing every .mdx file by hand.
+//
+// Why: Starlight's built-in "copy code" button shows its own green
+// "Copied!" pill (a CSS ::after driven by a `.feedback` element, see
+// orbit-theme.css for where that gets hidden). This site already uses
+// Orbit — it should dogfood OrbitToast for that feedback instead of
+// Starlight's default UI. Same override orbit-docs uses.
+import Default from '@astrojs/starlight/components/Head.astro';
+---
+
+<Default {...Astro.props}><slot /></Default>
+<script>
+  import '@dragbuilder-io/orbit/orbit-toast.js';
+
+  // Astro re-runs page <script>s on every view-transition navigation —
+  // guard so the click listener doesn't get attached more than once
+  // (which would fire one toast per past navigation on a single click).
+  if (!window.__orbitCopyToastInit) {
+    window.__orbitCopyToastInit = true;
+
+    const MESSAGES = {
+      es: 'Copiado al portapapeles',
+      en: 'Copied to clipboard',
+    };
+
+    function getStack() {
+      let stack = document.getElementById('orbit-copy-toast-stack');
+      if (!stack) {
+        stack = document.createElement('div');
+        stack.id = 'orbit-copy-toast-stack';
+        // Reparented to <body> (not left where the copy button lives) —
+        // Astro's page-transition wrapper puts a `transform` on an
+        // ancestor, which traps `position: fixed` inside it instead of
+        // the viewport.
+        stack.style.cssText =
+          'position:fixed;bottom:16px;right:16px;display:flex;flex-direction:column;gap:8px;z-index:9999;';
+        document.body.appendChild(stack);
+      }
+      return stack;
+    }
+
+    document.addEventListener('click', (event) => {
+      const button = event.target?.closest?.('.expressive-code .copy button');
+      if (!button) return;
+      const lang = document.documentElement.lang === 'es' ? 'es' : 'en';
+      const toast = document.createElement('orbit-toast');
+      toast.setAttribute('message', MESSAGES[lang]);
+      toast.setAttribute('intent', 'success');
+      toast.setAttribute('duration', 'short');
+      getStack().appendChild(toast);
+    });
+  }
+</script>
