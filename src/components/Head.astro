@@ -9,11 +9,18 @@
 // Orbit — it should dogfood OrbitToast for that feedback instead of
 // Starlight's default UI. Same override orbit-docs uses.
 import Default from '@astrojs/starlight/components/Head.astro';
+import type { Props } from '@astrojs/starlight/props';
 ---
 
 <Default {...Astro.props}><slot /></Default>
 <script>
   import '@dragbuilder-io/orbit/orbit-toast.js';
+
+  declare global {
+    interface Window {
+      __orbitCopyToastInit?: boolean;
+    }
+  }
 
   // Astro re-runs page <script>s on every view-transition navigation —
   // guard so the click listener doesn't get attached more than once
@@ -43,7 +50,7 @@ import Default from '@astrojs/starlight/components/Head.astro';
     }
 
     document.addEventListener('click', (event) => {
-      const button = event.target?.closest?.('.expressive-code .copy button');
+      const button = (event.target as HTMLElement | null)?.closest?.('.expressive-code .copy button');
       if (!button) return;
       const lang = document.documentElement.lang === 'es' ? 'es' : 'en';
       const toast = document.createElement('orbit-toast');
