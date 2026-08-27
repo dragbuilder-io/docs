@@ -1,12 +1,27 @@
 name: Deploy docs
 
+# Two ways to trigger:
+#  - Automatic (production): push to main, or workflow_dispatch — builds against
+#    whatever orbit/design-tokens versions package.json actually pins (the stable
+#    range) and deploys as the Cloudflare Pages production deployment
+#    (docs.dragbuilder.io).
+#  - Automatic (dev channel): push to develop — same build, but first bumps
+#    orbit/design-tokens to their "dev" dist-tag (in-progress work not yet on
+#    main there) and deploys as a Cloudflare Pages *preview* deployment tagged to
+#    the develop branch (mapped to dev.docs.dragbuilder.io in the Cloudflare
+#    dashboard — see deploy-dev below).
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   workflow_dispatch:
 
 jobs:
+  # Production path — main or workflow_dispatch only. Excludes the develop
+  # push trigger above (that only runs deploy-dev further down): without this
+  # guard a develop push would also deploy here as the Cloudflare Pages
+  # *production* deployment (no `branch` input means production).
   deploy:
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -83,3 +98,49 @@ jobs:
             --notes-file /tmp/release-notes.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Dev channel — deploys as a Cloudflare Pages *preview* deployment (the
+  # `branch: develop` input, as opposed to production's unset/default
+  # branch), pointed at whatever orbit/design-tokens have published under
+  # their "dev" npm tag (in-progress work, not necessarily what's on their
+  # own main yet). No GitHub Release here — releases stay a production-only
+  # concept.
+  deploy-dev:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: https://npm.pkg.github.com
+          scope: "@dragbuilder-io"
+
+      - run: npm ci
+        env:
+          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+
+      - name: Apuntar a las versiones dev de orbit/design-tokens
+        # --no-save: bumps these two packages to whatever's on the "dev" tag
+        # for *this build only* — package.json/package-lock.json stay
+        # pinned to the stable range, so this doesn't create a lockfile
+        # diff every push (and doesn't affect the production build).
+        run: npm install @dragbuilder-io/orbit@dev @dragbuilder-io/design-tokens@dev --no-save
+        env:
+          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+
+      - run: npm run build
+
+      - name: "Deploy to Cloudflare Pages (preview: develop)"
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: dragbuilder-docs
+          directory: dist
+          branch: develop
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
