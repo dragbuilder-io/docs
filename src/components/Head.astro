@@ -10,11 +10,62 @@
 // Starlight's default UI. Same override orbit-docs uses.
 import Default from '@astrojs/starlight/components/Head.astro';
 import type { Props } from '@astrojs/starlight/props';
+
+// Only set to "dev" by the deploy-dev CI job (see .github/workflows/deploy.yml)
+// — the production build never defines this var, so the ribbon can't leak there.
+const isDevEnv = import.meta.env.PUBLIC_APP_ENV === 'dev';
 ---
 
 <Default {...Astro.props}><slot /></Default>
+{isDevEnv && (
+  <style>
+    #dev-env-ribbon {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 9999;
+      width: 90px;
+      height: 90px;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    #dev-env-ribbon span {
+      position: absolute;
+      top: 15px;
+      right: -28px;
+      width: 120px;
+      transform: rotate(45deg);
+      text-align: center;
+      background: rgba(220, 38, 38, 0.85);
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 2px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+)}
 <script>
   import '@dragbuilder-io/orbit/orbit-toast.js';
+
+  declare global {
+    interface Window {
+      __devEnvRibbonInit?: boolean;
+    }
+  }
+
+  // Astro re-runs page <script>s on every view-transition navigation — guard
+  // so the ribbon isn't appended more than once per page load.
+  if (import.meta.env.PUBLIC_APP_ENV === 'dev' && !window.__devEnvRibbonInit) {
+    window.__devEnvRibbonInit = true;
+    const ribbon = document.createElement('div');
+    ribbon.id = 'dev-env-ribbon';
+    ribbon.setAttribute('aria-hidden', 'true');
+    ribbon.innerHTML = '<span>DEV</span>';
+    document.body.appendChild(ribbon);
+  }
 
   declare global {
     interface Window {
