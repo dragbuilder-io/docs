@@ -133,7 +133,12 @@ jobs:
         env:
           GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
 
-      - run: npm run build
+      - name: Build (dev ribbon)
+        # PUBLIC_APP_ENV=dev is only set here — the production `deploy` job's
+        # `npm run build` above never defines it, so the ribbon can't leak there.
+        run: npm run build
+        env:
+          PUBLIC_APP_ENV: dev
 
       - name: "Deploy to Cloudflare Pages (preview: develop)"
         uses: cloudflare/pages-action@v1
