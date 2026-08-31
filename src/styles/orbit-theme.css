@@ -58,3 +58,19 @@
 .expressive-code .copy .feedback {
   display: none !important;
 }
+
+/* orbit-theme-toggle.js's active-pill icon color reads
+   --color-primary-on-navy-text with no fallback — needs design-tokens
+   >=0.1.31 (this repo currently has 0.1.29 installed; see
+   src/components/ThemeSelect.astro's comment). Overridden here via the
+   component's own exposed `part="option"` since its shadow root can't
+   be reached with a plain selector otherwise — same theme-aware values
+   nova's tokens.css defines for the real token, so once the real
+   dependency is installed this rule just goes unused instead of
+   conflicting with it. */
+orbit-theme-toggle::part(option)[aria-pressed="true"] {
+  color: var(--color-primary-on-lime-text);
+}
+:root[data-theme="light"] orbit-theme-toggle::part(option)[aria-pressed="true"] {
+  color: #ffffff;
+}
