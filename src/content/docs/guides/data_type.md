@@ -94,6 +94,6 @@ By defining an `ArticleItem` data type, you can easily manage and display articl
     - In the **"Data Types"** section, select the data type.
     - Click **"Delete"** or **"Remove"** to delete it from your project.
 
-:::caution
+<orbit-callout intent="caution">
 Ensure that the data type is not in use before deleting to prevent errors.
-:::
+</orbit-callout>

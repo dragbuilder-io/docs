@@ -22,7 +22,7 @@ In DragBuilder, **state** is a fundamental concept that drives the dynamic behav
 
 ### How State Works in DragBuilder
 
-- **Declarative UI**: DragBuilder generates apps using Compose Multiplatform, following the same principles as Jetpack Compose, which is built on a declarative UI approach. This means the UI is a reflection of the current state.
+- **Declarative UI**: DragBuilder uses a declarative approach to build your UI — the UI is a reflection of the current state, so it always stays in sync automatically.
 - **Automatic Updates**: When the state changes, the UI automatically updates to reflect those changes.
 
 ### Assigning State to Values
@@ -72,13 +72,13 @@ State management in DragBuilder is organized hierarchically to provide scope and
     - **Switch**: Has a boolean state for on/off status
     - **RadioButton**: Tracks selection state within a group
 
-:::tip[TextField example]
+<orbit-callout intent="tip" heading="TextField example">
 For example, TextField is dropped to the canvas, the companion state is automatically created.
 
 ![Companion state TextField](/image/companion_state_textfield.png)
 ![Companion state in state dialog](/image/companion_state_in_state_dialog.png)
 
-:::
+</orbit-callout>
 
 - **Benefits**:
     - **Ease of Use**: No manual state setup required for basic input handling

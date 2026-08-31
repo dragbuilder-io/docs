@@ -1,5 +1,5 @@
 ---
-// Registers <orbit-button>. Lives in its own .astro file (not inlined as a
+// Registers <orbit-button> and <orbit-badge>. Lives in its own .astro file (not inlined as a
 // <script> tag directly in .mdx prose) because Starlight's MDX pipeline runs
 // page content through the markdown/remark processor, which mangled a raw
 // <script> block placed in the body — it got wrapped in a <p> and its quotes
@@ -19,4 +19,5 @@ import '@dragbuilder-io/design-tokens/dist/css/fonts.css';
 
 <script>
   import '@dragbuilder-io/orbit/orbit-button.js';
+  import '@dragbuilder-io/orbit/orbit-badge.js';
 </script>
