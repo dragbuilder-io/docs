@@ -7,6 +7,7 @@
    tema activo automáticamente. */
 @import "@dragbuilder-io/design-tokens/dist/css/tokens.css";
 @import "@dragbuilder-io/design-tokens/dist/css/tokens-light.css";
+@import "@dragbuilder-io/design-tokens/dist/css/fonts.css";
 
 /* --color-surface-background/background-secondary ya son theme-aware por
    sí mismos (tokens-light.css arriba), así que la misma var resuelve al
@@ -19,6 +20,28 @@
   --sl-color-bg: var(--color-surface-background);
   --sl-color-bg-nav: var(--color-surface-background-secondary);
   --sl-color-bg-sidebar: var(--color-surface-background-secondary);
+
+  /* fonts.css above only declares the @font-face — Starlight still falls
+     back to --sl-font-system for every heading/nav/sidebar/body element
+     until --sl-font itself is pointed at Gilroy. Without this, Orbit's
+     typography never actually shows up outside individual <orbit-*>
+     components (which set their own font-family internally). */
+  --sl-font: var(--typography-font-family), ui-sans-serif, system-ui, sans-serif;
+
+  /* Starlight's own accent scale (--sl-color-accent*) defaults to its
+     stock blue (hsl(224,100%,*)) — untouched, it drives the sidebar's
+     active-item marker, every inline link, the right-sidebar "on this
+     page" current-heading highlight, and Starlight's own <Badge>
+     component, all independently of the surface colors above. Left
+     alone, the site reads as "Starlight blue with a dark background"
+     rather than actually branded. --color-primary-on-light-text is used
+     for text specifically (not the raw lime) because it's the one
+     token design-tokens already swaps to navy in light mode — raw lime
+     text on a white background is barely legible. */
+  --sl-color-accent-low: var(--color-primary-950);
+  --sl-color-accent: var(--color-primary-500);
+  --sl-color-accent-high: var(--color-primary-500);
+  --sl-color-text-accent: var(--color-primary-on-light-text);
 }
 
 /* Starlight no tiene var propia para el panel derecho "On this page" —
@@ -34,4 +57,20 @@
    src/components/Head.astro for the click listener that spawns it. */
 .expressive-code .copy .feedback {
   display: none !important;
+}
+
+/* orbit-theme-toggle.js's active-pill icon color reads
+   --color-primary-on-navy-text with no fallback — needs design-tokens
+   >=0.1.31 (this repo currently has 0.1.29 installed; see
+   src/components/ThemeSelect.astro's comment). Overridden here via the
+   component's own exposed `part="option"` since its shadow root can't
+   be reached with a plain selector otherwise — same theme-aware values
+   nova's tokens.css defines for the real token, so once the real
+   dependency is installed this rule just goes unused instead of
+   conflicting with it. */
+orbit-theme-toggle::part(option)[aria-pressed="true"] {
+  color: var(--color-primary-on-lime-text);
+}
+:root[data-theme="light"] orbit-theme-toggle::part(option)[aria-pressed="true"] {
+  color: #ffffff;
 }

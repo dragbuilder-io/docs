@@ -47,10 +47,10 @@ Seguí estos pasos para crear una lista o grilla dinámica en tu app de DragBuil
   <source src="/video/create_list_data_type.webm" type="video/webm" />
 </video>
 
-:::note
+<orbit-callout intent="note">
 Alternativamente, podés definir otros tipos de state de lista, como la lista de respuesta JSON al
 llamar a una API externa.
-:::
+</orbit-callout>
 
 ### **Paso 2: Agregá un composable Lazy a tu pantalla**
 
@@ -131,7 +131,7 @@ llamar a una API externa.
   <source src="/video/binding_properties_from_dynamic_items.webm" type="video/webm" />
 </video>
 
-:::note
+<orbit-callout intent="note">
 Solo un hijo directo puede vincularse con los elementos dinámicos.
 
 Por ejemplo, este es un caso válido
@@ -152,7 +152,7 @@ LazyColumn
  - Row (se asignan elementos dinámicos para propiedades distintas)
  - Row (como footer)
 ```
-:::
+</orbit-callout>
 
 ### **Paso 7: Configurá y probá**
 
@@ -188,7 +188,7 @@ LazyColumn
 
     - Si la lista de la fuente de datos se actualiza (por ejemplo, se agregan o eliminan ítems), la UI reflejará automáticamente esos cambios gracias a la naturaleza declarativa de DragBuilder.
 
-:::tip
+<orbit-callout intent="tip">
 
 Una vez que un ítem dinámico se asigna a un composable lazy, el **índice** de cada ítem en la lista queda disponible como variable de state. Podés usar ese índice para cambiar la apariencia de los ítems según su posición en la lista.
 
@@ -214,4 +214,4 @@ Una vez que un ítem dinámico se asigna a un composable lazy, el **índice** de
   <source src="/video/lazy_item_index_demo.webm" type="video/webm" />
 </video>
 
-:::
+</orbit-callout>

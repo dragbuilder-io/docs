@@ -1,0 +1,49 @@
+---
+// Uses Orbit's own <orbit-language-select> (published in
+// @dragbuilder-io/orbit) instead of hand-drawn markup — options come from
+// light-DOM <orbit-language-option> children (unregistered, read only for
+// their attributes, same pattern orbit-select.js's <orbit-option> uses),
+// so this file only owns what's actually this site's own: the locale
+// list itself and turning a picked value into a real navigation.
+// "root" is used as the English option's `value`/prefix-designator (matching
+// Starlight's own locales config, which also calls it "root") instead of
+// an empty string — an empty-string HTML attribute value is finicky to
+// read back reliably via getAttribute/dataset.
+const LOCALES = [
+  { value: "root", prefix: "", flag: "🇺🇸", name: "English" },
+  { value: "es", prefix: "/es", flag: "🇪🇸", name: "Español" },
+];
+
+const path = Astro.url.pathname;
+const currentIndex = LOCALES.findIndex(
+  ({ prefix }) => prefix && (path === prefix || path.startsWith(prefix + "/")),
+);
+const index = currentIndex === -1 ? 0 : currentIndex;
+const current = LOCALES[index];
+
+const pathWithoutLocale = current.prefix ? path.slice(current.prefix.length) || "/" : path;
+---
+
+<orbit-language-select id="lang-select" value={current.value}>
+  {
+    LOCALES.map((locale) => (
+      <orbit-language-option
+        value={locale.value}
+        flag={locale.flag}
+        label={locale.name}
+        data-href={locale.prefix + pathWithoutLocale}
+      />
+    ))
+  }
+</orbit-language-select>
+
+<script>
+  import "@dragbuilder-io/orbit/orbit-language-select.js";
+
+  document.getElementById("lang-select")?.addEventListener("orbit-change", (event) => {
+    const value = (event as CustomEvent).detail?.value;
+    const option = document.querySelector(`orbit-language-option[value="${value}"]`);
+    const href = option?.getAttribute("data-href");
+    if (href) window.location.href = href;
+  });
+</script>

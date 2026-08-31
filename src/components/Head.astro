@@ -49,6 +49,11 @@ const isDevEnv = import.meta.env.PUBLIC_APP_ENV === 'dev';
 )}
 <script>
   import '@dragbuilder-io/orbit/orbit-toast.js';
+  // Registered globally (not per-page like OrbitButtonScript.astro's
+  // orbit-button/orbit-badge) because <orbit-callout> replaces
+  // Starlight's :::note/:::tip/:::caution asides — those are scattered
+  // across most content pages, not confined to one or two.
+  import '@dragbuilder-io/orbit/orbit-callout.js';
 
   declare global {
     interface Window {

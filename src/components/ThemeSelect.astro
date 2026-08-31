@@ -1,0 +1,53 @@
+---
+// Uses Orbit's own <orbit-theme-toggle> (published in @dragbuilder-io/orbit)
+// instead of hand-drawn markup — that component is consumer-agnostic on
+// purpose (it never touches localStorage or document.documentElement
+// itself, see its own file header), so this file only owns the
+// Starlight-specific plumbing: persisting under Starlight's own
+// "starlight-theme" localStorage key and setting
+// document.documentElement.dataset.theme, mirroring Starlight's own
+// ThemeProvider.astro (not overridden, still runs as-is for
+// FOUC-prevention on first paint).
+---
+
+<orbit-theme-toggle id="theme-toggle"></orbit-theme-toggle>
+
+<script>
+  import "@dragbuilder-io/orbit/orbit-theme-toggle.js";
+
+  type Theme = "auto" | "dark" | "light";
+  const storageKey = "starlight-theme";
+
+  const parseTheme = (theme: unknown): Theme =>
+    theme === "auto" || theme === "dark" || theme === "light" ? theme : "auto";
+
+  const loadTheme = (): Theme =>
+    parseTheme(typeof localStorage !== "undefined" && localStorage.getItem(storageKey));
+
+  function storeTheme(theme: Theme): void {
+    if (typeof localStorage !== "undefined") {
+      localStorage.setItem(storageKey, theme === "light" || theme === "dark" ? theme : "");
+    }
+  }
+
+  const getPreferredColorScheme = (): Theme =>
+    matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+
+  const toggle = document.getElementById("theme-toggle");
+
+  const applyTheme = (theme: Theme, persist: boolean): void => {
+    document.documentElement.dataset.theme = theme === "auto" ? getPreferredColorScheme() : theme;
+    toggle?.setAttribute("value", theme);
+    if (persist) storeTheme(theme);
+  };
+
+  applyTheme(loadTheme(), false);
+
+  toggle?.addEventListener("orbit-change", (event) => {
+    applyTheme(parseTheme((event as CustomEvent).detail?.value), true);
+  });
+
+  matchMedia("(prefers-color-scheme: light)").addEventListener("change", () => {
+    if (loadTheme() === "auto") applyTheme("auto", false);
+  });
+</script>
