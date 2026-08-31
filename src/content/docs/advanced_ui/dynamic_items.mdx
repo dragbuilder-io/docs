@@ -47,10 +47,10 @@ Follow these steps to create a dynamic list or grid in your DragBuilder app:
   <source src="/video/create_list_data_type.webm" type="video/webm" />
 </video>
 
-:::note
+<orbit-callout intent="note">
 Alternatively, you can define other types of a list state such as the list of json response by
 calling an external API.
-:::
+</orbit-callout>
 
 ### **Step 2: Add a Lazy Composable to Your Screen**
 
@@ -131,7 +131,7 @@ calling an external API.
   <source src="/video/binding_properties_from_dynamic_items.webm" type="video/webm" />
 </video>
 
-:::note
+<orbit-callout intent="note">
 Only one direct child is able to be bound with the dynamic items.
 
 For example, this is a valid case
@@ -150,7 +150,7 @@ LazyColumn
  - Row (dynamic items are assigned for different properties)
  - Row (as footer)
 ```
-:::
+</orbit-callout>
 
 ### **Step 7: Configure and Test**
 
@@ -186,7 +186,7 @@ LazyColumn
 
     - If the data source list updates (e.g., items are added or removed), the UI will automatically reflect these changes due to DragBuilder's declarative nature.
 
-:::tip
+<orbit-callout intent="tip">
 
 Once a dynamic item is assigned to a lazy composable, the **index** of each item in the list becomes available as a state variable. You can use this index to change the appearance of items based on their position in the list.
 
@@ -212,4 +212,4 @@ Once a dynamic item is assigned to a lazy composable, the **index** of each item
   <source src="/video/lazy_item_index_demo.webm" type="video/webm" />
 </video>
 
-:::
+</orbit-callout>
