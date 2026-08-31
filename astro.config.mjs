@@ -16,6 +16,9 @@ export default defineConfig({
 			customCss: ['./src/styles/orbit-theme.css'],
 			components: {
 				Head: './src/components/Head.astro',
+				Header: './src/components/Header.astro',
+				ThemeSelect: './src/components/ThemeSelect.astro',
+				LanguageSelect: './src/components/LanguageSelect.astro',
 			},
 			head: [
 				{

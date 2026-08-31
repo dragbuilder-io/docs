@@ -1,0 +1,124 @@
+---
+// Overrides Starlight's default <Header> just to replace the hairline
+// it draws between the social-icons slot and ThemeSelect/LanguageSelect
+// (a plain `.social-icons::after { border-inline-end: 1px solid
+// var(--sl-color-gray-5) }` CSS hack, not any real component) with a
+// real <orbit-divider> — ported from orbit-docs' own Header.astro (the
+// design-system's own docs site uses the exact same override for the
+// exact same reason). Everything else is an unmodified copy of
+// Starlight's Header.astro — importing the *virtual* component
+// specifiers (not concrete paths) so this still picks up this repo's
+// own ThemeSelect.astro/LanguageSelect.astro overrides automatically
+// instead of reverting to Starlight's defaults.
+import config from "virtual:starlight/user-config";
+import type { Props } from "@astrojs/starlight/props";
+import LanguageSelect from "virtual:starlight/components/LanguageSelect";
+import Search from "virtual:starlight/components/Search";
+import SiteTitle from "virtual:starlight/components/SiteTitle";
+import SocialIcons from "virtual:starlight/components/SocialIcons";
+import ThemeSelect from "virtual:starlight/components/ThemeSelect";
+
+const shouldRenderSearch =
+  config.pagefind || config.components.Search !== "@astrojs/starlight/components/Search.astro";
+---
+
+<script>
+  import "@dragbuilder-io/orbit/orbit-divider.js";
+</script>
+
+<div class="header sl-flex">
+  <div class="title-wrapper sl-flex">
+    <SiteTitle {...Astro.props} />
+  </div>
+  <div class="search-wrapper sl-flex">
+    {shouldRenderSearch && <Search {...Astro.props} />}
+  </div>
+  <div class="sl-hidden md:sl-flex right-group">
+    <div class="sl-flex social-icons">
+      <SocialIcons {...Astro.props} />
+    </div>
+    <orbit-divider orientation="vertical"></orbit-divider>
+    <ThemeSelect {...Astro.props} />
+    <LanguageSelect {...Astro.props} />
+  </div>
+</div>
+
+<style>
+  .header {
+    gap: var(--sl-nav-gap);
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+
+  .title-wrapper {
+    /* Prevent long titles overflowing and covering the search and menu buttons on narrow viewports. */
+    overflow: hidden;
+  }
+
+  /* Below 50rem .header is a plain flex row (the grid further down only
+     applies at ≥50rem), and justify-content: space-between doesn't
+     stretch flex items along the main axis — without this the search
+     column shrinks to its own content width (~150px) and just sits
+     flush against the mobile menu button, nowhere near full width, no
+     matter what orbit-search's own flex:1 (Search.astro) does — that
+     only controls how orbit-search fills *this* div, not how this div
+     itself is sized within .header. Harmless at ≥50rem: .header is a
+     grid there and flex-* on a grid item is simply ignored, since the
+     grid's own 1fr column (below) already sizes this div directly. */
+  .search-wrapper {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .right-group,
+  .social-icons {
+    gap: 1rem;
+    align-items: center;
+  }
+
+  /* Column 3's own natural content (icons + divider + theme + language)
+     is far narrower than the calc() below reserves for it — without
+     this, the flex default (justify-content: flex-start) leaves it
+     hugging the *left* edge of that reserved space instead of the
+     header's right edge, where it always used to sit. */
+  .right-group {
+    justify-content: flex-end;
+  }
+
+  /* Starlight's own header only aligns column 1 with the sidebar's
+     width, so the title never overlaps the content column below —
+     column 3 is left a plain `auto` ("as wide as the icons need").
+     With our own trigger capped at a fixed max-width and centered
+     inside column 2 via margin, that asymmetry (sidebar ≈300px on the
+     left vs. ~175px of icons on the right) pushed the search box
+     visibly right of the actual content column's center.
+
+     Both tracks below are sized so column 2 lands exactly on top of
+     the real content column (`.main-pane`, sidebar-to-toc) beneath the
+     header — each is "the real column's width, minus the padding and
+     gap that sit between it and column 2" so column 2's own edges end
+     up flush with that real column's edges:
+       col1 = sidebar_width - nav_pad_x - nav_gap
+       col3 = toc_width     - nav_pad_x - nav_gap
+     toc_width itself replicates Starlight's real right-sidebar-container
+     formula (TwoColumnContent.astro) — not the header's own
+     --__toc-width placeholder, which just assumes "toc ≈ sidebar width"
+     and isn't accurate enough for this. minmax(_, auto) on both, same
+     as Starlight's own column 1, so neither column can shrink below
+     what its own content needs at narrower widths. */
+  @media (min-width: 50rem) {
+    .header {
+      --__toc-width: calc(
+        var(--sl-sidebar-width) + (
+            100% + (2 * var(--sl-nav-pad-x)) - (2 * var(--sl-sidebar-width)) - var(--sl-content-width)
+          ) / 2
+      );
+      --__sidebar-track: calc(var(--sl-sidebar-width) - var(--sl-nav-pad-x) - var(--sl-nav-gap));
+      --__toc-track: calc(var(--__toc-width) - var(--sl-nav-pad-x) - var(--sl-nav-gap));
+      display: grid;
+      grid-template-columns: minmax(var(--__sidebar-track), auto) 1fr minmax(var(--__toc-track), auto);
+      align-content: center;
+    }
+  }
+</style>

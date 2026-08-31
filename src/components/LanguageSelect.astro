@@ -1,0 +1,98 @@
+---
+// Overrides Starlight's default <LanguageSelect> (a native <select>
+// dropdown) with a real <orbit-menu>: the trigger is a circular button
+// showing the CURRENT language's flag, and clicking it opens a dropdown
+// listing the other locale (flag + name) — same dogfooded dropdown shell
+// every other menu in orbit-docs uses, ported from there. Locale prefixes
+// are the inverse of orbit-docs' (this site's astro.config.mjs has
+// defaultLocale: 'root' mapped to English, with Spanish under /es — not
+// the other way around), so LOCALES/index detection below is adjusted
+// for that, not a direct copy.
+const LOCALES = [
+  { prefix: "", flag: "🇺🇸", name: "English" },
+  { prefix: "/es", flag: "🇪🇸", name: "Español" },
+];
+
+const path = Astro.url.pathname;
+const currentIndex = LOCALES.findIndex(
+  ({ prefix }) => prefix && (path === prefix || path.startsWith(prefix + "/")),
+);
+const index = currentIndex === -1 ? 0 : currentIndex;
+const current = LOCALES[index];
+const others = LOCALES.filter((_, i) => i !== index);
+
+const pathWithoutLocale = current.prefix ? path.slice(current.prefix.length) || "/" : path;
+
+const ARIA_LABEL: Record<string, string> = {
+  "": "Change language — currently English",
+  "/es": "Cambiar idioma — actualmente Español",
+};
+---
+
+<orbit-menu class="orbit-lang-select">
+  <button type="button" slot="trigger" class="orbit-lang-toggle" aria-label={ARIA_LABEL[current.prefix]}>
+    <span aria-hidden="true">{current.flag}</span>
+  </button>
+  {
+    others.map((locale) => (
+      <orbit-menu-item
+        data-href={locale.prefix + pathWithoutLocale}
+        label={`${locale.flag}  ${locale.name}`}
+      />
+    ))
+  }
+</orbit-menu>
+
+<script>
+  import "@dragbuilder-io/orbit/orbit-menu.js";
+  import "@dragbuilder-io/orbit/orbit-menu-item.js";
+
+  document.addEventListener("click", (event) => {
+    const target = event.target as HTMLElement | null;
+    const item = target?.closest("orbit-menu-item[data-href]") as HTMLElement | null;
+    if (item?.dataset.href) window.location.href = item.dataset.href;
+  });
+</script>
+
+<style>
+  .orbit-lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-field-border);
+    background: var(--color-field-background);
+    font-size: 1rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color calc(var(--motion-duration-color) * 1ms);
+  }
+
+  .orbit-lang-toggle:hover {
+    border-color: var(--color-field-border-focus);
+  }
+
+  /* Flag emoji glyphs draw with their ink sitting noticeably above
+     center in their own character box (measured via canvas pixel
+     bounds: ~5px high at a 64px render, negligible horizontal offset)
+     — the box itself is centered by the flex rule above, but the ink
+     inside it isn't, so a small downward nudge nets an
+     actually-centered flag instead of a technically-centered box. */
+  .orbit-lang-toggle span {
+    transform: translateY(1.25px);
+  }
+
+  /* orbit-menu.js's panel is inside its own shadow root — only reachable
+     from outside via its exposed `part="panel"`, not a plain selector
+     (`:global()` just skips Astro's scoping hash, it doesn't pierce
+     shadow DOM). Right-aligned since this trigger sits at the far end
+     of the header — a left-aligned panel would run off-screen. */
+  .orbit-lang-select::part(panel) {
+    left: auto;
+    right: 0;
+    min-width: 160px;
+  }
+</style>
