@@ -49,13 +49,15 @@ jobs:
 
       - run: npm run build
 
+      # cloudflare/pages-action was removed from GitHub upstream (the repo
+      # 404s now) — wrangler-action's own `pages deploy` command is
+      # Cloudflare's current recommended replacement.
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: dragbuilder-docs
-          directory: dist
+          command: pages deploy dist --project-name=dragbuilder-docs
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build categorized changelog
@@ -144,11 +146,9 @@ jobs:
           PUBLIC_APP_ENV: dev
 
       - name: "Deploy to Cloudflare Pages (preview: develop)"
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: dragbuilder-docs
-          directory: dist
-          branch: develop
+          command: pages deploy dist --project-name=dragbuilder-docs --branch=develop
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
